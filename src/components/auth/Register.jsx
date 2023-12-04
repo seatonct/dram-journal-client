@@ -8,7 +8,6 @@ export const Register = ({ setToken }) => {
   const lastName = useRef();
   const email = useRef();
   const username = useRef();
-  const bio = useRef();
   const password = useRef();
   const verifyPassword = useRef();
   const passwordDialog = useRef();
@@ -24,7 +23,6 @@ export const Register = ({ setToken }) => {
         last_name: lastName.current.value,
         email: email.current.value,
         password: password.current.value,
-        bio: bio.current.value,
       };
 
       registerUser(newUser).then((res) => {
@@ -41,7 +39,7 @@ export const Register = ({ setToken }) => {
   return (
     <section className="columns is-centered">
       <form className="column is-two-thirds" onSubmit={handleRegister}>
-        <h1 className="title">Rare Publishing</h1>
+        <h1 className="title">Dram Journal</h1>
         <p className="subtitle">Create an account</p>
         <div className="field">
           <label className="label">First Name</label>
@@ -95,17 +93,6 @@ export const Register = ({ setToken }) => {
                 />
               </p>
             </div>
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Bio</label>
-          <div className="control">
-            <textarea
-              className="textarea"
-              placeholder="Tell us about yourself..."
-              ref={bio}
-            ></textarea>
           </div>
         </div>
 
