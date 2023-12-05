@@ -37,78 +37,112 @@ export const Register = ({ setToken }) => {
   };
 
   return (
-    <section className="columns is-centered">
-      <form className="column is-two-thirds" onSubmit={handleRegister}>
-        <h1 className="title">Dram Journal</h1>
-        <p className="subtitle">Create an account</p>
-        <div className="field">
-          <label className="label">First Name</label>
-          <div className="control">
-            <input className="input" type="text" ref={firstName} />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Last Name</label>
-          <div className="control">
-            <input className="input" type="text" ref={lastName} />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input className="input" type="text" ref={username} />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Email</label>
-          <div className="control">
-            <input className="input" type="email" ref={email} />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="field-body">
-            <div className="field">
-              <p className="control is-expanded">
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="Password"
-                  ref={password}
-                />
-              </p>
-            </div>
-
-            <div className="field">
-              <p className="control is-expanded">
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="Verify Password"
-                  ref={verifyPassword}
-                />
-              </p>
+    <>
+      <h1 className="text-5xl text-center">Dram Journal</h1>
+      <p className="text-lg text-center">Create an account</p>
+      <section className="flex justify-center items-center">
+        <form
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4"
+          onSubmit={handleRegister}
+        >
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              First Name
+            </label>
+            <div className="">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                ref={firstName}
+              />
             </div>
           </div>
-        </div>
 
-        <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link" type="submit">
-              Submit
-            </button>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Last Name
+            </label>
+            <div className="control">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                ref={lastName}
+              />
+            </div>
           </div>
-          <div className="control">
-            <Link to="/login" className="button is-link is-light">
-              Cancel
-            </Link>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Username
+            </label>
+            <div className="control">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                ref={username}
+              />
+            </div>
           </div>
-        </div>
-      </form>
-    </section>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Email
+            </label>
+            <div className="control">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="email"
+                ref={email}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            <div className="field-body">
+              <div className="field">
+                <p className="control is-expanded">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="password"
+                    placeholder="Password"
+                    ref={password}
+                  />
+                </p>
+              </div>
+
+              <div className="">
+                <p className="">
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="password"
+                    placeholder="Verify Password"
+                    ref={verifyPassword}
+                  />
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <div className="">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+            <div className="control">
+              <Link to="/login" className="hover:text-blue-700">
+                Cancel
+              </Link>
+            </div>
+          </div>
+        </form>
+      </section>
+    </>
   );
 };

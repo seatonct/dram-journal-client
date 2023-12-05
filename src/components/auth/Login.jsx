@@ -27,43 +27,62 @@ export const Login = ({ setToken }) => {
   };
 
   return (
-    <section className="columns is-centered">
-      <form className="column is-two-thirds" onSubmit={handleLogin}>
-        <h1 className="title">Dram Journal</h1>
-        <p className="subtitle">Please sign in</p>
+    <>
+      <h1 className="text-5xl text-center">Dram Journal</h1>
+      <p className="text-lg text-center">Please sign in</p>
+      <section className="flex justify-center items-center h-screen">
+        <form
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3"
+          onSubmit={handleLogin}
+        >
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Username
+            </label>
+            <div className="">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="text"
+                ref={username}
+              />
+            </div>
+          </div>
 
-        <div className="field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input className="input" type="text" ref={username} />
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Password
+            </label>
+            <div className="">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                type="password"
+                ref={password}
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input className="input" type="password" ref={password} />
+          <div className="flex items-center justify-between">
+            <div className="">
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+            <div className="">
+              <Link to="/register" className="hover:text-blue-700">
+                Cancel
+              </Link>
+            </div>
           </div>
-        </div>
-
-        <div className="field is-grouped">
-          <div className="control">
-            <button className="button is-link" type="submit">
-              Submit
-            </button>
-          </div>
-          <div className="control">
-            <Link to="/register" className="button is-link is-light">
-              Cancel
-            </Link>
-          </div>
-        </div>
-        {isUnsuccessful ? (
-          <p className="help is-danger">Email or password not valid</p>
-        ) : (
-          ""
-        )}
-      </form>
-    </section>
+          {isUnsuccessful ? (
+            <p className="">Email or password not valid</p>
+          ) : (
+            ""
+          )}
+        </form>
+      </section>
+    </>
   );
 };
