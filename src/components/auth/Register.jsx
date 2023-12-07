@@ -42,7 +42,7 @@ export const Register = ({ setToken }) => {
       <p className="text-lg text-center">Create an account</p>
       <section className="flex justify-center items-center">
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4"
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-md"
           onSubmit={handleRegister}
         >
           <div className="mb-4">

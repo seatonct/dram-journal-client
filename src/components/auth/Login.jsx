@@ -32,7 +32,7 @@ export const Login = ({ setToken }) => {
       <p className="text-lg text-center">Please sign in</p>
       <section className="flex justify-center items-center h-screen">
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3"
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-sm"
           onSubmit={handleLogin}
         >
           <div className="mb-4">

@@ -11,7 +11,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register setToken={setToken} />} />
         <Route element={<Authorized token={token} />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home token={token} />} />
         </Route>
       </Routes>
     </>
