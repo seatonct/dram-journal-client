@@ -1,0 +1,8 @@
+.navbar {
+   background-color: rgba(255, 255, 255, 0.9); /* Use your desired RGB values and adjust the fourth value (alpha) for transparency */
+   /* Other styles for your navbar */
+ }
+.navbar-item img {
+   max-height: 3rem;
+   opacity:2%;
+}
