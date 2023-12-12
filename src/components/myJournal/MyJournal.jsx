@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
-import { getAllEntries } from "../../managers/EntryManager";
+import { getEntriesByUsername } from "../../managers/EntryManager";
+import { useParams } from "react-router-dom";
 
-export const Home = ({ token }) => {
-  const [allEntries, setAllEntries] = useState([]);
+export const MyJournal = ({ token }) => {
+  const [journalEntries, setJournalEntries] = useState([]);
 
-  const getAndSetAllEntries = async () => {
-    const entriesArray = await getAllEntries();
-    setAllEntries(entriesArray);
+  const { username } = useParams();
+
+  const getAndSetJournalEntries = async () => {
+    const entryArray = await getEntriesByUsername(username);
+    setJournalEntries(entryArray);
   };
 
   useEffect(() => {
-    getAndSetAllEntries();
-  }, [token]);
+    getAndSetJournalEntries();
+  }, []);
 
   return (
     <>
       <h1 className=" text-2xl text-center">Welcome to Dram Journal</h1>
-      {allEntries.map((entry) => {
+      {journalEntries.map((entry) => {
         return (
           <div key={entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
