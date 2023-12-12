@@ -39,7 +39,7 @@ export const Home = ({ token }) => {
             )}
             <p>Proof: {entry.proof}</p>
             {entry.color ? (
-              <div style={{ backgroundColor: `#${entry.color.hex_code}` }}>
+              <div className={`bg-${entry.color.tailwind_name}`}>
                 <p>
                   Color: {entry.color.color_grade} - {entry.color.label}
                 </p>
