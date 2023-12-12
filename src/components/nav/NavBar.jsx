@@ -7,10 +7,12 @@ export const NavBar = ({ token, setToken }) => {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    getCurrentUser().then((res) => {
-      setCurrentUser(res);
-    });
-  }, []);
+    if (token) {
+      getCurrentUser().then((res) => {
+        setCurrentUser(res);
+      });
+    }
+  }, [token]);
 
   const navigate = useNavigate();
 
