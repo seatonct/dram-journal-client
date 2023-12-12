@@ -123,7 +123,7 @@ export const New = ({ token }) => {
             ></input>
           </div>
           <div className="flex">
-            <div>
+            <div className=" w-1/2">
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Age:
@@ -155,7 +155,7 @@ export const New = ({ token }) => {
                   Color:
                 </label>
                 <select
-                  className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   id="whiskey_type"
                   onChange={handleUpdate}
