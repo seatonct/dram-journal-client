@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../managers/AuthManager";
 
 export const NavBar = ({ token, setToken }) => {
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUsername, setCurrentUsername] = useState({});
 
   useEffect(() => {
     if (token) {
       getCurrentUser().then((res) => {
-        setCurrentUser(res);
+        setCurrentUsername(res.username);
       });
     }
   }, [token]);
@@ -25,7 +25,7 @@ export const NavBar = ({ token, setToken }) => {
               <Link to="/" className="text-white">
                 Home
               </Link>
-              <Link to={`/${currentUser.username}`} className="text-white">
+              <Link to={`/${currentUsername}`} className="text-white">
                 My Journal
               </Link>
             </>
