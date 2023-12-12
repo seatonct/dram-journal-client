@@ -22,3 +22,15 @@ export const registerUser = (newUser) => {
     body: JSON.stringify(newUser),
   }).then((res) => res.json());
 };
+
+export const getCurrentUser = async () => {
+  const res = await fetch("http://localhost:8000/dramapi/current_user", {
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  const user = res.json();
+  return user;
+};

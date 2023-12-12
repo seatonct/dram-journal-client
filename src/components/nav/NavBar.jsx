@@ -1,7 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
+import { useState, useEffect } from "react";
+import { getCurrentUser } from "../../managers/AuthManager";
 
 export const NavBar = ({ token, setToken }) => {
+  const [currentUsername, setCurrentUsername] = useState({});
+
+  useEffect(() => {
+    if (token) {
+      getCurrentUser().then((res) => {
+        setCurrentUsername(res.username);
+      });
+    }
+  }, [token]);
+
   const navigate = useNavigate();
 
   return (
@@ -12,6 +24,9 @@ export const NavBar = ({ token, setToken }) => {
             <>
               <Link to="/" className="text-white">
                 Home
+              </Link>
+              <Link to={`/${currentUsername}`} className="text-white">
+                My Journal
               </Link>
             </>
           )}
