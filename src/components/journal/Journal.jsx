@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getEntriesByUsername } from "../../managers/EntryManager";
 import { useParams } from "react-router-dom";
 
-export const MyJournal = ({ token }) => {
+export const Journal = ({ token }) => {
   const [journalEntries, setJournalEntries] = useState([]);
 
   const { username } = useParams();
@@ -14,7 +14,7 @@ export const MyJournal = ({ token }) => {
 
   useEffect(() => {
     getAndSetJournalEntries();
-  }, []);
+  }, [username]);
 
   return (
     <>
