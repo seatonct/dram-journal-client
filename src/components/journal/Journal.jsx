@@ -35,13 +35,13 @@ export const Journal = ({ token }) => {
               <p>Origin: {entry.country}</p>
             )}
 
-            {entry.age_in_years ? (
+            {entry.age_in_years > 0 ? (
               <p>Age: {parseInt(entry.age_in_years)} years</p>
             ) : (
               ""
             )}
             <p>Proof: {entry.proof}</p>
-            {entry.color ? (
+            {22 > entry.color.id > 0 ? (
               <div style={{ backgroundColor: `#${entry.color.hex_code}` }}>
                 <p>
                   Color: {entry.color.color_grade} - {entry.color.label}
