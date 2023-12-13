@@ -1,17 +1,36 @@
 import { useEffect, useState } from "react";
 import {
+  createEntry,
   getAllColors,
   getAllRatings,
   getAllTypes,
 } from "../../managers/EntryManager";
+import { useNavigate } from "react-router-dom";
 
-export const New = ({ token }) => {
+export const New = ({ token, currentUsername }) => {
   const [allTypes, setAllTypes] = useState([]);
   const [allColors, setAllColors] = useState([]);
   const [allRatings, setAllRatings] = useState([]);
-  const [newEntry, setNewEntry] = useState({});
+  const [newEntry, setNewEntry] = useState({
+    whiskey: "",
+    type_id: 0,
+    country: "",
+    part_of_country: "",
+    age_in_years: "",
+    proof: "",
+    color_id: 0,
+    mash_bill: "",
+    maturation_details: "",
+    nose: "",
+    palate: "",
+    finish: "",
+    rating_id: 0,
+    notes: "",
+  });
   const [selectedOption, setSelectedOption] = useState("");
-  const [colorSample, setColorSample] = useState("");
+  // const [colorSample, setColorSample] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllTypes().then((types) => {
@@ -25,13 +44,13 @@ export const New = ({ token }) => {
     });
   }, []);
 
-  const handleMouseEnter = (hex) => {
-    setColorSample(hex);
-  };
+  // const handleMouseEnter = (hex) => {
+  //   setColorSample(hex);
+  // };
 
-  const handleMouseLeave = () => {
-    setColorSample("");
-  };
+  // const handleMouseLeave = () => {
+  //   setColorSample("");
+  // };
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -44,10 +63,12 @@ export const New = ({ token }) => {
     setNewEntry(copy);
   };
 
-  const handleSave = (event) => {
+  const handleSave = async (event) => {
     event.preventDefault();
     const copy = { ...newEntry };
-    copy.rating = selectedOption;
+    copy.rating_id = selectedOption;
+    await createEntry(copy);
+    navigate(`/${currentUsername}`);
   };
 
   return (
@@ -79,7 +100,7 @@ export const New = ({ token }) => {
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
-              id="whiskey_type"
+              id="type_id"
               onChange={handleUpdate}
               required
             >
@@ -143,7 +164,7 @@ export const New = ({ token }) => {
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="number"
+                  type="float"
                   id="proof"
                   onChange={handleUpdate}
                   required
@@ -157,7 +178,7 @@ export const New = ({ token }) => {
                 <select
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
-                  id="whiskey_type"
+                  id="color_id"
                   onChange={handleUpdate}
                 >
                   <option defaultValue value="0" key="0">
@@ -165,27 +186,23 @@ export const New = ({ token }) => {
                   </option>
                   {allColors.map((colorObj) => {
                     return (
-                      <>
-                        <option
-                          key={colorObj.id}
-                          value={colorObj.id}
-                          onMouseEnter={() => {
-                            handleMouseEnter(colorObj.hex_code);
-                          }}
-                          onMouseLeave={handleMouseLeave}
-                        >
-                          {colorObj.color_grade}-{colorObj.label}
-                        </option>
-                      </>
+                      <option
+                        key={colorObj.id}
+                        value={colorObj.id}
+                        // onMouseEnter={() => {
+                        //   handleMouseEnter(colorObj.hex_code);
+                        // }}
+                        // onMouseLeave={handleMouseLeave}
+                      >
+                        {colorObj.color_grade}-{colorObj.label}
+                      </option>
                     );
                   })}
                 </select>
               </div>
             </div>
             {/* Figure out how to set the background color according to the color hovered over or selected. */}
-            <div style={{ backgroundColor: `#${colorSample}` }}>
-              {/* Color Sample */}
-            </div>
+            <div>{/* Color Sample */}</div>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -263,6 +280,7 @@ export const New = ({ token }) => {
                 return (
                   <label key={rating.id} className=" px-2">
                     <input
+                      id="rating_id"
                       type="radio"
                       value={rating.id}
                       onChange={handleOptionChange}
@@ -274,6 +292,19 @@ export const New = ({ token }) => {
                 );
               })}
             </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Notes:
+            </label>
+            <textarea
+              className="shadow appearance-none border rounded w-full h-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              id="notes"
+              placeholder="Add additional notes here"
+              onChange={handleUpdate}
+            ></textarea>
           </div>
 
           <div>* Required Field</div>

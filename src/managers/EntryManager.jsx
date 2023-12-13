@@ -60,3 +60,17 @@ export const getAllRatings = async () => {
   const ratings = res.json();
   return ratings;
 };
+
+export const createEntry = async (newEntry) => {
+  const res = await fetch(`http://localhost:8000/entries`, {
+    body: JSON.stringify(newEntry),
+    method: "POST",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  const created = res.json();
+  return created;
+};

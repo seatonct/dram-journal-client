@@ -1,19 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
-import { useState, useEffect } from "react";
-import { getCurrentUser } from "../../managers/AuthManager";
 
-export const NavBar = ({ token, setToken }) => {
-  const [currentUsername, setCurrentUsername] = useState({});
-
-  useEffect(() => {
-    if (token) {
-      getCurrentUser().then((res) => {
-        setCurrentUsername(res.username);
-      });
-    }
-  }, [token]);
-
+export const NavBar = ({ token, setToken, currentUsername }) => {
   const navigate = useNavigate();
 
   return (

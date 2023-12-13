@@ -6,7 +6,7 @@ import { Home } from "../components/home/Home";
 import { Journal } from "../components/Journal/Journal";
 import { New } from "../components/new/New";
 
-export const ApplicationViews = ({ token, setToken }) => {
+export const ApplicationViews = ({ token, setToken, currentUsername }) => {
   return (
     <>
       <Routes>
@@ -15,7 +15,10 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route element={<Authorized token={token} />}>
           <Route path="/" element={<Home token={token} />} />
           <Route path=":username" element={<Journal token={token} />} />
-          <Route path="new" element={<New token={token} />} />
+          <Route
+            path="new"
+            element={<New token={token} currentUsername={currentUsername} />}
+          />
         </Route>
       </Routes>
     </>
