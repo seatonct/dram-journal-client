@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllEntries } from "../../managers/EntryManager";
+import { getAllEntries, deleteEntry } from "../../managers/EntryManager";
 
 export const Home = ({ token }) => {
   const [allEntries, setAllEntries] = useState([]);
@@ -7,6 +7,11 @@ export const Home = ({ token }) => {
   const getAndSetAllEntries = async () => {
     const entriesArray = await getAllEntries();
     setAllEntries(entriesArray);
+  };
+
+  const handleDelete = async (entryId) => {
+    await deleteEntry(entryId);
+    await getAndSetAllEntries();
   };
 
   useEffect(() => {
@@ -68,7 +73,12 @@ export const Home = ({ token }) => {
             {entry.is_owner ? (
               <div className="flex justify-between my-2">
                 <i className="fa-solid fa-pen-ruler"></i>
-                <i className="fa-solid fa-trash"></i>
+                <i
+                  onClick={() => {
+                    handleDelete(entry.id);
+                  }}
+                  className="fa-solid fa-trash"
+                ></i>
               </div>
             ) : (
               ""
