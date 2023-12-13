@@ -74,3 +74,14 @@ export const createEntry = async (newEntry) => {
   const created = res.json();
   return created;
 };
+
+export const deleteEntry = async (entryId) => {
+  await fetch(`http://localhost:8000/entries/${entryId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+};
