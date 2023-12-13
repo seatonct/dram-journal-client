@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getEntriesByUsername } from "../../managers/EntryManager";
+import { deleteEntry, getEntriesByUsername } from "../../managers/EntryManager";
 import { useParams } from "react-router-dom";
 
 export const Journal = ({ token }) => {
@@ -10,6 +10,11 @@ export const Journal = ({ token }) => {
   const getAndSetJournalEntries = async () => {
     const entryArray = await getEntriesByUsername(username);
     setJournalEntries(entryArray);
+  };
+
+  const handleDelete = async (entryId) => {
+    await deleteEntry(entryId);
+    await getAndSetJournalEntries();
   };
 
   useEffect(() => {
@@ -35,13 +40,13 @@ export const Journal = ({ token }) => {
               <p>Origin: {entry.country}</p>
             )}
 
-            {entry.age_in_years ? (
+            {entry.age_in_years > 0 ? (
               <p>Age: {parseInt(entry.age_in_years)} years</p>
             ) : (
               ""
             )}
             <p>Proof: {entry.proof}</p>
-            {entry.color ? (
+            {22 > entry.color.id > 0 ? (
               <div style={{ backgroundColor: `#${entry.color.hex_code}` }}>
                 <p>
                   Color: {entry.color.color_grade} - {entry.color.label}
@@ -71,7 +76,12 @@ export const Journal = ({ token }) => {
             {entry.is_owner ? (
               <div className="flex justify-between my-2">
                 <i className="fa-solid fa-pen-ruler"></i>
-                <i className="fa-solid fa-trash"></i>
+                <i
+                  onClick={() => {
+                    handleDelete(entry.id);
+                  }}
+                  className="fa-solid fa-trash"
+                ></i>
               </div>
             ) : (
               ""

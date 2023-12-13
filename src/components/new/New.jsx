@@ -7,7 +7,7 @@ import {
 } from "../../managers/EntryManager";
 import { useNavigate } from "react-router-dom";
 
-export const New = ({ token, currentUsername }) => {
+export const New = ({ currentUsername }) => {
   const [allTypes, setAllTypes] = useState([]);
   const [allColors, setAllColors] = useState([]);
   const [allRatings, setAllRatings] = useState([]);
@@ -16,9 +16,9 @@ export const New = ({ token, currentUsername }) => {
     type_id: 0,
     country: "",
     part_of_country: "",
-    age_in_years: "",
+    age_in_years: 0,
     proof: "",
-    color_id: 0,
+    color_id: 22,
     mash_bill: "",
     maturation_details: "",
     nose: "",
@@ -27,7 +27,6 @@ export const New = ({ token, currentUsername }) => {
     rating_id: 0,
     notes: "",
   });
-  const [selectedOption, setSelectedOption] = useState("");
   // const [colorSample, setColorSample] = useState("");
 
   const navigate = useNavigate();
@@ -52,10 +51,6 @@ export const New = ({ token, currentUsername }) => {
   //   setColorSample("");
   // };
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
   const handleUpdate = (event) => {
     event.preventDefault();
     const copy = { ...newEntry };
@@ -66,7 +61,6 @@ export const New = ({ token, currentUsername }) => {
   const handleSave = async (event) => {
     event.preventDefault();
     const copy = { ...newEntry };
-    copy.rating_id = selectedOption;
     await createEntry(copy);
     navigate(`/${currentUsername}`);
   };
@@ -185,18 +179,20 @@ export const New = ({ token, currentUsername }) => {
                     What color is the whiskey?
                   </option>
                   {allColors.map((colorObj) => {
-                    return (
-                      <option
-                        key={colorObj.id}
-                        value={colorObj.id}
-                        // onMouseEnter={() => {
-                        //   handleMouseEnter(colorObj.hex_code);
-                        // }}
-                        // onMouseLeave={handleMouseLeave}
-                      >
-                        {colorObj.color_grade}-{colorObj.label}
-                      </option>
-                    );
+                    if (colorObj.id > 0 && colorObj.id < 22) {
+                      return (
+                        <option
+                          key={colorObj.id}
+                          value={colorObj.id}
+                          // onMouseEnter={() => {
+                          //   handleMouseEnter(colorObj.hex_code);
+                          // }}
+                          // onMouseLeave={handleMouseLeave}
+                        >
+                          {colorObj.color_grade}-{colorObj.label}
+                        </option>
+                      );
+                    }
                   })}
                 </select>
               </div>
@@ -283,8 +279,8 @@ export const New = ({ token, currentUsername }) => {
                       id="rating_id"
                       type="radio"
                       value={rating.id}
-                      onChange={handleOptionChange}
-                      checked={parseInt(selectedOption) === rating.id}
+                      onChange={handleUpdate}
+                      checked={parseInt(newEntry.rating_id) === rating.id}
                       className=" mr-1"
                     />
                     {rating.number_rating}-{rating.label}
