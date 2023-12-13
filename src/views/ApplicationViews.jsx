@@ -5,6 +5,7 @@ import { Authorized } from "./Authorized";
 import { Home } from "../components/home/Home";
 import { Journal } from "../components/Journal/Journal";
 import { New } from "../components/new/New";
+import { Edit } from "../components/edit/Edit";
 
 export const ApplicationViews = ({ token, setToken, currentUsername }) => {
   return (
@@ -19,6 +20,7 @@ export const ApplicationViews = ({ token, setToken, currentUsername }) => {
             path="new"
             element={<New token={token} currentUsername={currentUsername} />}
           />
+          <Route path="/edit/:postId" element={<Edit />} />
         </Route>
       </Routes>
     </>
