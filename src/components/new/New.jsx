@@ -184,7 +184,7 @@ export const New = ({ token }) => {
             </div>
             {/* Figure out how to set the background color according to the color hovered over or selected. */}
             <div style={{ backgroundColor: `#${colorSample}` }}>
-              Color Sample
+              {/* Color Sample */}
             </div>
           </div>
           <div className="mb-4">
