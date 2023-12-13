@@ -28,6 +28,9 @@ export const NavBar = ({ token, setToken }) => {
               <Link to={`/${currentUsername}`} className="text-white">
                 My Journal
               </Link>
+              <Link to="/new" className="text-white">
+                New Entry
+              </Link>
             </>
           )}
         </div>
