@@ -85,3 +85,30 @@ export const deleteEntry = async (entryId) => {
     },
   });
 };
+
+export const getEntryById = async (entryId) => {
+  const res = await fetch(`http://localhost:8000/entries/${entryId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  const entry = res.json();
+  return entry;
+};
+
+export const UpdateEntry = async (updatedEntry) => {
+  const res = await fetch(`http://localhost:8000/entries/${updatedEntry.id}`, {
+    body: JSON.stringify(updatedEntry),
+    method: "PUT",
+    headers: {
+      Authorization: `Token ${localStorage.getItem("auth_token")}`,
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  const updated = res.json();
+  return updated;
+};

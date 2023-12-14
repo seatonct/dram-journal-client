@@ -1,36 +1,21 @@
 import { useEffect, useState } from "react";
 import {
-  createEntry,
+  UpdateEntry,
   getAllColors,
   getAllRatings,
   getAllTypes,
+  getEntryById,
 } from "../../managers/EntryManager";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Edit = ({ currentUsername }) => {
   const [allTypes, setAllTypes] = useState([]);
   const [allColors, setAllColors] = useState([]);
   const [allRatings, setAllRatings] = useState([]);
   const [entry, setEntry] = useState();
-
-  const [newEntry, setNewEntry] = useState({
-    whiskey: "",
-    type_id: 0,
-    country: "",
-    part_of_country: "",
-    age_in_years: 0,
-    proof: "",
-    color_id: 22,
-    mash_bill: "",
-    maturation_details: "",
-    nose: "",
-    palate: "",
-    finish: "",
-    rating_id: 0,
-    notes: "",
-  });
   // const [colorSample, setColorSample] = useState("");
 
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +30,12 @@ export const Edit = ({ currentUsername }) => {
     });
   }, []);
 
+  useEffect(() => {
+    getEntryById(postId).then((entryObj) => {
+      setEntry(entryObj);
+    });
+  }, [postId]);
+
   // const handleMouseEnter = (hex) => {
   //   setColorSample(hex);
   // };
@@ -55,15 +46,32 @@ export const Edit = ({ currentUsername }) => {
 
   const handleUpdate = (event) => {
     event.preventDefault();
-    const copy = { ...newEntry };
+    const copy = { ...entry };
     copy[event.target.id] = event.target.value;
-    setNewEntry(copy);
+    setEntry(copy);
   };
 
   const handleSave = async (event) => {
     event.preventDefault();
-    const copy = { ...newEntry };
-    await createEntry(copy);
+
+    const updatedEntry = {
+      whiskey: entry.whiskey,
+      whiskey_type: entry.whiskey_type,
+      country: entry.country,
+      part_of_country: entry.part_of_country,
+      age_in_years: entry.age_in_years,
+      proof: entry.proof,
+      color_id: entry.color_id,
+      mash_bill: entry.mash_bill,
+      maturation_details: entry.maturation_details,
+      nose: entry.nose,
+      palate: entry.palate,
+      finish: entry.finish,
+      rating: entry.rating,
+      notes: entry.notes,
+    };
+
+    await UpdateEntry(updatedEntry);
     navigate(`/${currentUsername}`);
   };
 
@@ -81,6 +89,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.whiskey ? entry.whiskey : ""}
               type="text"
               id="whiskey"
               placeholder="Enter the name of the whiskey"
@@ -95,8 +104,9 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.whiskey_type.id ? entry.whiskey_type.id : 0}
               type="text"
-              id="type_id"
+              id="whiskey_id"
               onChange={handleUpdate}
               required
             >
@@ -119,6 +129,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.country ? entry.country : ""}
               type="text"
               id="country"
               placeholder="Enter the name of country where the whiskey was produced"
@@ -133,6 +144,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.part_of_country ? entry.part_of_country : ""}
               type="text"
               id="part_of_country"
               placeholder="Enter the state, region, or province where the whiskey was produced"
@@ -147,6 +159,7 @@ export const Edit = ({ currentUsername }) => {
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-16 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  value={entry?.age_in_years ? entry.age_in_years : 0}
                   type="number"
                   id="age_in_years"
                   onChange={handleUpdate}
@@ -160,6 +173,7 @@ export const Edit = ({ currentUsername }) => {
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  value={entry?.proof ? entry.proof : 0}
                   type="float"
                   id="proof"
                   onChange={handleUpdate}
@@ -173,6 +187,7 @@ export const Edit = ({ currentUsername }) => {
                 </label>
                 <select
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  value={entry?.color.id ? entry.color.id : 0}
                   type="text"
                   id="color_id"
                   onChange={handleUpdate}
@@ -208,6 +223,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full h-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.mash_bill ? entry.mash_bill : ""}
               type="text"
               id="mash_bill"
               placeholder="Enter information about the whiskey's mash bill"
@@ -221,6 +237,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full h-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.maturation_details ? entry.maturation_details : ""}
               type="text"
               id="maturation_details"
               placeholder="Enter information regarding how the whiskey was matured"
@@ -234,6 +251,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full h-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.nose ? entry.nose : ""}
               type="text"
               id="nose"
               placeholder="What does the whiskey smell like?"
@@ -248,6 +266,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full h-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.palate ? entry.palate : ""}
               type="text"
               id="palate"
               placeholder="What does the whiskey taste like?"
@@ -262,6 +281,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full h-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.finish ? entry.finish : ""}
               type="text"
               id="finish"
               placeholder="Describe the finish"
@@ -278,11 +298,11 @@ export const Edit = ({ currentUsername }) => {
                 return (
                   <label key={rating.id} className=" px-2">
                     <input
-                      id="rating_id"
+                      id="rating"
                       type="radio"
                       value={rating.id}
                       onChange={handleUpdate}
-                      checked={parseInt(newEntry.rating_id) === rating.id}
+                      checked={parseInt(entry.rating.id) === rating.id}
                       className=" mr-1"
                     />
                     {rating.number_rating}-{rating.label}
@@ -298,6 +318,7 @@ export const Edit = ({ currentUsername }) => {
             </label>
             <textarea
               className="shadow appearance-none border rounded w-full h-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.notes ? entry.notes : ""}
               type="text"
               id="notes"
               placeholder="Add additional notes here"
