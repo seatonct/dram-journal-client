@@ -109,6 +109,4 @@ export const UpdateEntry = async (updatedEntry) => {
       Accept: "application/json",
     },
   });
-  const updated = res.json();
-  return updated;
 };

@@ -55,19 +55,20 @@ export const Edit = ({ currentUsername }) => {
     event.preventDefault();
 
     const updatedEntry = {
+      id: entry.id,
       whiskey: entry.whiskey,
-      whiskey_type: entry.whiskey_type,
+      whiskey_type: entry.whiskey_type.id,
       country: entry.country,
       part_of_country: entry.part_of_country,
       age_in_years: entry.age_in_years,
       proof: entry.proof,
-      color_id: entry.color_id,
+      color_id: entry.color.id,
       mash_bill: entry.mash_bill,
       maturation_details: entry.maturation_details,
       nose: entry.nose,
       palate: entry.palate,
       finish: entry.finish,
-      rating: entry.rating,
+      rating: entry.rating.id,
       notes: entry.notes,
     };
 
@@ -107,7 +108,11 @@ export const Edit = ({ currentUsername }) => {
               value={entry?.whiskey_type.id ? entry.whiskey_type.id : 0}
               type="text"
               id="whiskey_id"
-              onChange={handleUpdate}
+              onChange={(event) => {
+                const copy = { ...entry };
+                copy.whiskey_type.id = event.target.value;
+                setEntry(copy);
+              }}
               required
             >
               <option defaultValue value="0" key="0">
@@ -190,7 +195,11 @@ export const Edit = ({ currentUsername }) => {
                   value={entry?.color.id ? entry.color.id : 0}
                   type="text"
                   id="color_id"
-                  onChange={handleUpdate}
+                  onChange={(event) => {
+                    const copy = { ...entry };
+                    copy.color.id = event.target.value;
+                    setEntry(copy);
+                  }}
                 >
                   <option defaultValue value="0" key="0">
                     What color is the whiskey?
@@ -301,7 +310,11 @@ export const Edit = ({ currentUsername }) => {
                       id="rating"
                       type="radio"
                       value={rating.id}
-                      onChange={handleUpdate}
+                      onChange={(event) => {
+                        const copy = { ...entry };
+                        copy.rating.id = event.target.value;
+                        setEntry(copy);
+                      }}
                       checked={parseInt(entry.rating.id) === rating.id}
                       className=" mr-1"
                     />
