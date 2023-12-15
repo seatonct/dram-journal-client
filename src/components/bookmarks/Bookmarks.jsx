@@ -1,43 +1,44 @@
 import { useEffect, useState } from "react";
-import { getAllEntries, deleteEntry } from "../../managers/EntryManager";
-import { useNavigate } from "react-router-dom";
+import { deleteEntry, getEntriesByUsername } from "../../managers/EntryManager";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  createBookmark,
   getBookmarksByUsername,
+  createBookmark,
   deleteBookmark,
 } from "../../managers/BookmarkManager";
 
-export const Home = ({ token, currentUsername }) => {
-  const [allEntries, setAllEntries] = useState([]);
+export const Bookmarks = ({ token }) => {
+  const [bookmarkedEntries, setBookmaredEntries] = useState([]);
   const [userBookmarks, setUserBookmarks] = useState([]);
 
+  const { username } = useParams();
   const navigate = useNavigate();
 
-  const getAndSetAllEntries = async () => {
-    const entriesArray = await getAllEntries();
-    setAllEntries(entriesArray);
+  const getAndSetUserBookmarks = async () => {
+    const bookmarksArray = await getBookmarksByUsername(username);
+    setUserBookmarks(bookmarksArray);
   };
 
-  const getAndSetUserBookmarks = async () => {
-    const bookmarksArray = await getBookmarksByUsername(currentUsername);
-    setUserBookmarks(bookmarksArray);
+  const getAndSetJournalEntries = async () => {
+    const entryArray = await getEntriesByUsername(username);
+    setJournalEntries(entryArray);
   };
 
   const handleDelete = async (entryId) => {
     await deleteEntry(entryId);
-    await getAndSetAllEntries();
+    await getAndSetJournalEntries();
   };
 
   useEffect(() => {
     getAndSetUserBookmarks().then(() => {
-      getAndSetAllEntries();
+      getAndSetJournalEntries();
     });
-  }, [token, currentUsername]);
+  }, [token, username]);
 
   return (
     <>
       <h1 className=" text-2xl text-center">Welcome to Dram Journal</h1>
-      {allEntries.map((entry) => {
+      {journalEntries.map((entry) => {
         return (
           <div key={entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
@@ -51,7 +52,7 @@ export const Home = ({ token, currentUsername }) => {
                       )
                     );
                     await getAndSetUserBookmarks();
-                    await getAndSetAllEntries();
+                    await getAndSetJournalEntries();
                   }}
                   className="fa-solid fa-bookmark"
                 ></i>
@@ -60,7 +61,7 @@ export const Home = ({ token, currentUsername }) => {
                   onClick={async () => {
                     await createBookmark({ entryId: entry.id });
                     await getAndSetUserBookmarks();
-                    await getAndSetAllEntries();
+                    await getAndSetJournalEntries();
                   }}
                   className="fa-regular fa-bookmark"
                 ></i>

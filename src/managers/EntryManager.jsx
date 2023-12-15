@@ -10,6 +10,22 @@ export const getAllEntries = async () => {
   return allEntries;
 };
 
+export const getUserEntries = async (username) => {
+  const res = await fetch(
+    `http://localhost:8000/entries?username=${username}`,
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  );
+  const userEntries = res.json();
+  return userEntries;
+};
+
+// Delete the following function if plan with one above works
 export const getEntriesByUsername = async (username) => {
   const res = await fetch(
     `http://localhost:8000/entries?username=${username}`,
