@@ -126,3 +126,18 @@ export const UpdateEntry = async (updatedEntry) => {
     },
   });
 };
+
+export const getBookmarkedEntries = async (userId) => {
+  const res = await fetch(
+    `http://localhost:8000/entries?bookmarkUser=${userId}`,
+    {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("auth_token")}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  );
+  const bookmarkedEntries = res.json();
+  return bookmarkedEntries;
+};

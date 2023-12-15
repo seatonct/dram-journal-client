@@ -1,71 +1,66 @@
 import { useEffect, useState } from "react";
-import { deleteEntry, getEntriesByUsername } from "../../managers/EntryManager";
-import { useNavigate, useParams } from "react-router-dom";
+import { deleteEntry, getBookmarkedEntries } from "../../managers/EntryManager";
+import { useNavigate } from "react-router-dom";
 import {
   getBookmarksByUsername,
-  createBookmark,
   deleteBookmark,
 } from "../../managers/BookmarkManager";
 
-export const Bookmarks = ({ token }) => {
-  const [bookmarkedEntries, setBookmaredEntries] = useState([]);
+export const Bookmarks = ({ currentUsername }) => {
+  const [bookmarkedEntries, setBookmarkedEntries] = useState([]);
   const [userBookmarks, setUserBookmarks] = useState([]);
 
-  const { username } = useParams();
   const navigate = useNavigate();
 
   const getAndSetUserBookmarks = async () => {
-    const bookmarksArray = await getBookmarksByUsername(username);
+    const bookmarksArray = await getBookmarksByUsername(currentUsername);
     setUserBookmarks(bookmarksArray);
   };
 
-  const getAndSetJournalEntries = async () => {
-    const entryArray = await getEntriesByUsername(username);
-    setJournalEntries(entryArray);
+  const getAndSetBookmarkedEntries = async () => {
+    const entryArray = await getBookmarkedEntries(userBookmarks[0].user);
+    setBookmarkedEntries(entryArray);
   };
 
   const handleDelete = async (entryId) => {
     await deleteEntry(entryId);
-    await getAndSetJournalEntries();
+    await getAndSetBookmarkedEntries();
   };
 
   useEffect(() => {
-    getAndSetUserBookmarks().then(() => {
-      getAndSetJournalEntries();
-    });
-  }, [token, username]);
+    if (currentUsername !== "undefined") {
+      getAndSetUserBookmarks();
+    }
+  }, [currentUsername]);
+
+  useEffect(() => {
+    if (userBookmarks.length > 0) {
+      getAndSetBookmarkedEntries(userBookmarks[0].user);
+    }
+  }, [userBookmarks]);
 
   return (
     <>
       <h1 className=" text-2xl text-center">Welcome to Dram Journal</h1>
-      {journalEntries.map((entry) => {
+      {bookmarkedEntries.map((entry) => {
         return (
           <div key={entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
               <h2>{entry.whiskey}</h2>
-              {userBookmarks.find((obj) => obj.entry === entry.id) ? (
-                <i
-                  onClick={async () => {
-                    await deleteBookmark(
-                      userBookmarks.find(
-                        (bookmark) => bookmark.entry === entry.id
-                      )
-                    );
-                    await getAndSetUserBookmarks();
-                    await getAndSetJournalEntries();
-                  }}
-                  className="fa-solid fa-bookmark"
-                ></i>
-              ) : (
-                <i
-                  onClick={async () => {
-                    await createBookmark({ entryId: entry.id });
-                    await getAndSetUserBookmarks();
-                    await getAndSetJournalEntries();
-                  }}
-                  className="fa-regular fa-bookmark"
-                ></i>
-              )}
+              <i
+                onClick={async () => {
+                  await deleteBookmark(
+                    userBookmarks.find(
+                      (bookmark) => bookmark.entry === entry.id
+                    )
+                  );
+                  await getAndSetUserBookmarks();
+                  if (userBookmarks.length > 0) {
+                    await getAndSetBookmarkedEntries(userBookmarks[0].user);
+                  }
+                }}
+                className="fa-solid fa-bookmark"
+              ></i>
             </section>
             <p>Type: {entry.whiskey_type?.label}</p>
             {entry.part_of_country ? (

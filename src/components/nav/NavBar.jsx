@@ -19,6 +19,9 @@ export const NavBar = ({ token, setToken, currentUsername }) => {
               <Link to="/new" className="text-white">
                 New Entry
               </Link>
+              <Link to="/bookmarks" className="text-white">
+                Bookmarks
+              </Link>
             </>
           )}
         </div>
