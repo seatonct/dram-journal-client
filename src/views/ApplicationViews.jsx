@@ -20,7 +20,10 @@ export const ApplicationViews = ({ token, setToken, currentUsername }) => {
             path="new"
             element={<New token={token} currentUsername={currentUsername} />}
           />
-          <Route path="/edit/:postId" element={<Edit />} />
+          <Route
+            path="/edit/:postId"
+            element={<Edit currentUsername={currentUsername} />}
+          />
         </Route>
       </Routes>
     </>
