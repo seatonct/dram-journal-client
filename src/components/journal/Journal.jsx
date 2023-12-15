@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { deleteEntry, getEntriesByUsername } from "../../managers/EntryManager";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const Journal = ({ token }) => {
   const [journalEntries, setJournalEntries] = useState([]);
 
   const { username } = useParams();
+  const navigate = useNavigate();
 
   const getAndSetJournalEntries = async () => {
     const entryArray = await getEntriesByUsername(username);
@@ -75,7 +76,12 @@ export const Journal = ({ token }) => {
             </p>
             {entry.is_owner ? (
               <div className="flex justify-between my-2">
-                <i className="fa-solid fa-pen-ruler"></i>
+                <i
+                  onClick={() => {
+                    navigate(`/edit/${entry.id}`);
+                  }}
+                  className="fa-solid fa-pen-ruler"
+                ></i>
                 <i
                   onClick={() => {
                     handleDelete(entry.id);
