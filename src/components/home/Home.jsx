@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { getAllEntries, deleteEntry } from "../../managers/EntryManager";
+import { useNavigate } from "react-router-dom";
 
 export const Home = ({ token }) => {
   const [allEntries, setAllEntries] = useState([]);
+
+  const navigate = useNavigate();
 
   const getAndSetAllEntries = async () => {
     const entriesArray = await getAllEntries();
@@ -72,7 +75,12 @@ export const Home = ({ token }) => {
             </p>
             {entry.is_owner ? (
               <div className="flex justify-between my-2">
-                <i className="fa-solid fa-pen-ruler"></i>
+                <i
+                  onClick={() => {
+                    navigate(`/edit/${entry.id}`);
+                  }}
+                  className="fa-solid fa-pen-ruler"
+                ></i>
                 <i
                   onClick={() => {
                     handleDelete(entry.id);
