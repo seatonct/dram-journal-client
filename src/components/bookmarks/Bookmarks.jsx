@@ -2,23 +2,17 @@ import { useEffect, useState } from "react";
 import { deleteEntry, getBookmarkedEntries } from "../../managers/EntryManager";
 import { useNavigate } from "react-router-dom";
 import {
-  getBookmarksByUsername,
+  getBookmarksWithExpandedEntry,
   deleteBookmark,
 } from "../../managers/BookmarkManager";
 
 export const Bookmarks = ({ currentUsername }) => {
   const [bookmarkedEntries, setBookmarkedEntries] = useState([]);
-  const [userBookmarks, setUserBookmarks] = useState([]);
 
   const navigate = useNavigate();
 
-  const getAndSetUserBookmarks = async () => {
-    const bookmarksArray = await getBookmarksByUsername(currentUsername);
-    setUserBookmarks(bookmarksArray);
-  };
-
   const getAndSetBookmarkedEntries = async () => {
-    const entryArray = await getBookmarkedEntries(userBookmarks[0].user);
+    const entryArray = await getBookmarksWithExpandedEntry(currentUsername);
     setBookmarkedEntries(entryArray);
   };
 
@@ -29,92 +23,97 @@ export const Bookmarks = ({ currentUsername }) => {
 
   useEffect(() => {
     if (currentUsername !== "undefined") {
-      getAndSetUserBookmarks();
+      getAndSetBookmarkedEntries();
     }
   }, [currentUsername]);
 
-  useEffect(() => {
-    if (userBookmarks.length > 0) {
-      getAndSetBookmarkedEntries(userBookmarks[0].user);
-    }
-  }, [userBookmarks]);
-
   return (
     <>
-      <h1 className=" text-2xl text-center">Welcome to Dram Journal</h1>
-      {bookmarkedEntries.map((entry) => {
+      <h1 className=" text-2xl text-center">Bookmarked Journal Entries</h1>
+      {bookmarkedEntries.map((bookmark) => {
         return (
-          <div key={entry.id} className="p-2 m-2 border-2">
+          <div key={bookmark.entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
-              <h2>{entry.whiskey}</h2>
+              <h2>{bookmark.entry.whiskey}</h2>
               <i
                 onClick={async () => {
                   await deleteBookmark(
-                    userBookmarks.find(
-                      (bookmark) => bookmark.entry === entry.id
+                    bookmarkedEntries.find(
+                      (bookmark) => bookmark.entry.id === bookmark.entry.id
                     )
                   );
-                  await getAndSetUserBookmarks();
-                  if (userBookmarks.length > 0) {
-                    await getAndSetBookmarkedEntries(userBookmarks[0].user);
-                  }
+
+                  await getAndSetBookmarkedEntries(currentUsername);
                 }}
                 className="fa-solid fa-bookmark"
               ></i>
             </section>
-            <p>Type: {entry.whiskey_type?.label}</p>
-            {entry.part_of_country ? (
+            <p>Type: {bookmark.entry.whiskey_type?.label}</p>
+            {bookmark.entry.part_of_country ? (
               <p>
-                Origin: {entry.part_of_country}, {entry.country}
+                Origin: {bookmark.entry.part_of_country},{" "}
+                {bookmark.entry.country}
               </p>
             ) : (
-              <p>Origin: {entry.country}</p>
+              <p>Origin: {bookmark.entry.country}</p>
             )}
 
-            {entry.age_in_years > 0 ? (
-              <p>Age: {parseInt(entry.age_in_years)} years</p>
+            {bookmark.entry.age_in_years > 0 ? (
+              <p>Age: {parseInt(bookmark.entry.age_in_years)} years</p>
             ) : (
               ""
             )}
-            <p>Proof: {entry.proof}</p>
-            {22 > entry.color.id > 0 ? (
-              <div style={{ backgroundColor: `#${entry.color.hex_code}` }}>
+            <p>Proof: {bookmark.entry.proof}</p>
+            {22 > bookmark.entry.color.id > 0 ? (
+              <div
+                style={{ backgroundColor: `#${bookmark.entry.color.hex_code}` }}
+              >
                 <p>
-                  Color: {entry.color.color_grade} - {entry.color.label}
+                  Color: {bookmark.entry.color.color_grade} -{" "}
+                  {bookmark.entry.color.label}
                 </p>
                 <div></div>
               </div>
             ) : (
               ""
             )}
-            {entry.mash_bill ? <p>Mash Bill: {entry.mash_bill}</p> : ""}
-            {entry.maturation_details ? (
-              <p>Maturation Details: {entry.maturation_details}</p>
+            {bookmark.entry.mash_bill ? (
+              <p>Mash Bill: {bookmark.entry.mash_bill}</p>
             ) : (
               ""
             )}
-            <p>Nose: {entry.nose}</p>
-            <p>Palate: {entry.palate}</p>
-            {entry.finish ? <p>Finish: {entry.finish}</p> : ""}
+            {bookmark.entry.maturation_details ? (
+              <p>Maturation Details: {bookmark.entry.maturation_details}</p>
+            ) : (
+              ""
+            )}
+            <p>Nose: {bookmark.entry.nose}</p>
+            <p>Palate: {bookmark.entry.palate}</p>
+            {bookmark.entry.finish ? (
+              <p>Finish: {bookmark.entry.finish}</p>
+            ) : (
+              ""
+            )}
             <p>
-              Rating: {entry.rating.number_rating}/5 - {entry.rating.label}
+              Rating: {bookmark.entry.rating.number_rating}/5 -{" "}
+              {bookmark.entry.rating.label}
             </p>
-            {entry.notes ? <p>Notes: {entry.notes}</p> : ""}
+            {bookmark.entry.notes ? <p>Notes: {bookmark.entry.notes}</p> : ""}
             <p>
-              From {entry.user.author_name}'s Dram Journal{" "}
-              {entry.publication_date}
+              From {bookmark.entry.user.author_name}'s Dram Journal{" "}
+              {bookmark.entry.publication_date}
             </p>
-            {entry.is_owner ? (
+            {bookmark.entry.is_owner ? (
               <div className="flex justify-between my-2">
                 <i
                   onClick={() => {
-                    navigate(`/edit/${entry.id}`);
+                    navigate(`/edit/${bookmark.entry.id}`);
                   }}
                   className="fa-solid fa-pen-ruler"
                 ></i>
                 <i
                   onClick={() => {
-                    handleDelete(entry.id);
+                    handleDelete(bookmark.entry.id);
                   }}
                   className="fa-solid fa-trash"
                 ></i>
