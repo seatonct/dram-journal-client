@@ -6,6 +6,7 @@ import { Home } from "../components/home/Home";
 import { Journal } from "../components/Journal/Journal";
 import { New } from "../components/new/New";
 import { Edit } from "../components/edit/Edit";
+import { Bookmarks } from "../components/bookmarks/Bookmarks";
 
 export const ApplicationViews = ({ token, setToken, currentUsername }) => {
   return (
@@ -14,7 +15,10 @@ export const ApplicationViews = ({ token, setToken, currentUsername }) => {
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register setToken={setToken} />} />
         <Route element={<Authorized token={token} />}>
-          <Route path="/" element={<Home token={token} />} />
+          <Route
+            path="/"
+            element={<Home token={token} currentUsername={currentUsername} />}
+          />
           <Route path=":username" element={<Journal token={token} />} />
           <Route
             path="new"
@@ -23,6 +27,12 @@ export const ApplicationViews = ({ token, setToken, currentUsername }) => {
           <Route
             path="/edit/:postId"
             element={<Edit currentUsername={currentUsername} />}
+          />
+          <Route
+            path="/bookmarks"
+            element={
+              <Bookmarks token={token} currentUsername={currentUsername} />
+            }
           />
         </Route>
       </Routes>

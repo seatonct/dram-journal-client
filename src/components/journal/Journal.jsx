@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
 import { deleteEntry, getEntriesByUsername } from "../../managers/EntryManager";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  getBookmarksByUsername,
+  createBookmark,
+  deleteBookmark,
+} from "../../managers/BookmarkManager";
 
 export const Journal = ({ token }) => {
   const [journalEntries, setJournalEntries] = useState([]);
+  const [userBookmarks, setUserBookmarks] = useState([]);
 
   const { username } = useParams();
   const navigate = useNavigate();
+
+  const getAndSetUserBookmarks = async () => {
+    const bookmarksArray = await getBookmarksByUsername(username);
+    setUserBookmarks(bookmarksArray);
+  };
 
   const getAndSetJournalEntries = async () => {
     const entryArray = await getEntriesByUsername(username);
@@ -19,8 +30,10 @@ export const Journal = ({ token }) => {
   };
 
   useEffect(() => {
-    getAndSetJournalEntries();
-  }, [username]);
+    getAndSetUserBookmarks().then(() => {
+      getAndSetJournalEntries();
+    });
+  }, [token, username]);
 
   return (
     <>
@@ -30,7 +43,29 @@ export const Journal = ({ token }) => {
           <div key={entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
               <h2>{entry.whiskey}</h2>
-              <i className="fa-regular fa-bookmark"></i>
+              {userBookmarks.find((obj) => obj.entry === entry.id) ? (
+                <i
+                  onClick={async () => {
+                    await deleteBookmark(
+                      userBookmarks.find(
+                        (bookmark) => bookmark.entry === entry.id
+                      )
+                    );
+                    await getAndSetUserBookmarks();
+                    await getAndSetJournalEntries();
+                  }}
+                  className="fa-solid fa-bookmark"
+                ></i>
+              ) : (
+                <i
+                  onClick={async () => {
+                    await createBookmark({ entryId: entry.id });
+                    await getAndSetUserBookmarks();
+                    await getAndSetJournalEntries();
+                  }}
+                  className="fa-regular fa-bookmark"
+                ></i>
+              )}
             </section>
             <p>Type: {entry.whiskey_type?.label}</p>
             {entry.part_of_country ? (

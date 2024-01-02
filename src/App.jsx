@@ -5,7 +5,7 @@ import { getCurrentUser } from "./managers/AuthManager";
 
 export const App = () => {
   const [token, setTokenState] = useState(localStorage.getItem("auth_token"));
-  const [currentUsername, setCurrentUsername] = useState({});
+  const [currentUsername, setCurrentUsername] = useState();
 
   const setToken = (newToken) => {
     localStorage.setItem("auth_token", newToken);

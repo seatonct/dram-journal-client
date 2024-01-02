@@ -1,12 +1,28 @@
 import { useEffect, useState } from "react";
 import { getAllEntries, deleteEntry } from "../../managers/EntryManager";
+import { useNavigate } from "react-router-dom";
+import {
+  createBookmark,
+  getBookmarksByUsername,
+  deleteBookmark,
+} from "../../managers/BookmarkManager";
 
-export const Home = ({ token }) => {
+export const Home = ({ token, currentUsername }) => {
   const [allEntries, setAllEntries] = useState([]);
+  const [userBookmarks, setUserBookmarks] = useState([]);
+
+  const navigate = useNavigate();
 
   const getAndSetAllEntries = async () => {
     const entriesArray = await getAllEntries();
     setAllEntries(entriesArray);
+  };
+
+  const getAndSetUserBookmarks = async () => {
+    if (currentUsername) {
+      const bookmarksArray = await getBookmarksByUsername(currentUsername);
+      setUserBookmarks(bookmarksArray);
+    }
   };
 
   const handleDelete = async (entryId) => {
@@ -15,8 +31,12 @@ export const Home = ({ token }) => {
   };
 
   useEffect(() => {
-    getAndSetAllEntries();
-  }, [token]);
+    if (currentUsername) {
+      getAndSetUserBookmarks().then(() => {
+        getAndSetAllEntries();
+      });
+    }
+  }, [token, currentUsername]);
 
   return (
     <>
@@ -26,7 +46,29 @@ export const Home = ({ token }) => {
           <div key={entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
               <h2>{entry.whiskey}</h2>
-              <i className="fa-regular fa-bookmark"></i>
+              {userBookmarks.find((obj) => obj.entry === entry.id) ? (
+                <i
+                  onClick={async () => {
+                    await deleteBookmark(
+                      userBookmarks.find(
+                        (bookmark) => bookmark.entry === entry.id
+                      )
+                    );
+                    await getAndSetUserBookmarks();
+                    await getAndSetAllEntries();
+                  }}
+                  className="fa-solid fa-bookmark"
+                ></i>
+              ) : (
+                <i
+                  onClick={async () => {
+                    await createBookmark({ entryId: entry.id });
+                    await getAndSetUserBookmarks();
+                    await getAndSetAllEntries();
+                  }}
+                  className="fa-regular fa-bookmark"
+                ></i>
+              )}
             </section>
             <p>Type: {entry.whiskey_type?.label}</p>
             {entry.part_of_country ? (
@@ -72,7 +114,12 @@ export const Home = ({ token }) => {
             </p>
             {entry.is_owner ? (
               <div className="flex justify-between my-2">
-                <i className="fa-solid fa-pen-ruler"></i>
+                <i
+                  onClick={() => {
+                    navigate(`/edit/${entry.id}`);
+                  }}
+                  className="fa-solid fa-pen-ruler"
+                ></i>
                 <i
                   onClick={() => {
                     handleDelete(entry.id);
