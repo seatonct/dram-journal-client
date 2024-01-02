@@ -19,8 +19,10 @@ export const Home = ({ token, currentUsername }) => {
   };
 
   const getAndSetUserBookmarks = async () => {
-    const bookmarksArray = await getBookmarksByUsername(currentUsername);
-    setUserBookmarks(bookmarksArray);
+    if (currentUsername) {
+      const bookmarksArray = await getBookmarksByUsername(currentUsername);
+      setUserBookmarks(bookmarksArray);
+    }
   };
 
   const handleDelete = async (entryId) => {
@@ -29,9 +31,11 @@ export const Home = ({ token, currentUsername }) => {
   };
 
   useEffect(() => {
-    getAndSetUserBookmarks().then(() => {
-      getAndSetAllEntries();
-    });
+    if (currentUsername) {
+      getAndSetUserBookmarks().then(() => {
+        getAndSetAllEntries();
+      });
+    }
   }, [token, currentUsername]);
 
   return (

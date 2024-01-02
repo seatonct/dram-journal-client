@@ -22,7 +22,7 @@ export const Bookmarks = ({ currentUsername }) => {
   };
 
   useEffect(() => {
-    if (currentUsername !== "undefined") {
+    if (currentUsername) {
       getAndSetBookmarkedEntries();
     }
   }, [currentUsername]);
