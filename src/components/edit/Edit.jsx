@@ -78,10 +78,11 @@ export const Edit = ({ currentUsername }) => {
 
   return (
     <>
-      <h1 className="text-4xl text-center">Edit Entry</h1>;
+      <h1 className=" mt-10 text-slate-100 text-4xl text-center">Edit Entry</h1>
+      ;
       <section className="flex justify-center items-center">
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-md"
+          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-lg"
           onSubmit={handleSave}
         >
           <div className="mb-4">
@@ -156,75 +157,68 @@ export const Edit = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></input>
           </div>
-          <div className="flex">
-            <div className=" w-1/2">
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Age:
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-16 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  value={entry?.age_in_years ? entry.age_in_years : 0}
-                  type="number"
-                  id="age_in_years"
-                  onChange={handleUpdate}
-                ></input>
-                <span> years</span>
-              </div>
 
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  *Proof:
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  value={entry?.proof ? entry.proof : 0}
-                  type="float"
-                  id="proof"
-                  onChange={handleUpdate}
-                  required
-                ></input>
-              </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Age:
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.age_in_years ? entry.age_in_years : 0}
+              type="number"
+              id="age_in_years"
+              onChange={handleUpdate}
+            ></input>
+            <span> years</span>
+          </div>
 
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  Color:
-                </label>
-                <select
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  value={entry?.color.id ? entry.color.id : 0}
-                  type="text"
-                  id="color_id"
-                  onChange={(event) => {
-                    const copy = { ...entry };
-                    copy.color.id = event.target.value;
-                    setEntry(copy);
-                  }}
-                >
-                  <option defaultValue value="0" key="0">
-                    What color is the whiskey?
-                  </option>
-                  {allColors.map((colorObj) => {
-                    if (colorObj.id > 0 && colorObj.id < 22) {
-                      return (
-                        <option
-                          key={colorObj.id}
-                          value={colorObj.id}
-                          // onMouseEnter={() => {
-                          //   handleMouseEnter(colorObj.hex_code);
-                          // }}
-                          // onMouseLeave={handleMouseLeave}
-                        >
-                          {colorObj.color_grade}-{colorObj.label}
-                        </option>
-                      );
-                    }
-                  })}
-                </select>
-              </div>
-            </div>
-            {/* Figure out how to set the background color according to the color hovered over or selected. */}
-            <div>{/* Color Sample */}</div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              *Proof:
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-20 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.proof ? entry.proof : 0}
+              type="float"
+              id="proof"
+              onChange={handleUpdate}
+              required
+            ></input>
+          </div>
+
+          <div className="mb-4">
+            <img
+              className="mb-2"
+              src="https://images.squarespace-cdn.com/content/v1/5ea1d97fa7adf23f0a1c9f63/1592961180376-PJ77I2KEQG9INTCPASXS/whiskey+color+whisky+mag.jpg?format=1000w"
+              alt="Whiskey color scale"
+            ></img>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Color:
+            </label>
+            <select
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={entry?.color.id ? entry.color.id : 0}
+              type="text"
+              id="color_id"
+              onChange={(event) => {
+                const copy = { ...entry };
+                copy.color.id = event.target.value;
+                setEntry(copy);
+              }}
+            >
+              <option defaultValue value="0" key="0">
+                What color is the whiskey?
+              </option>
+              {allColors.map((colorObj) => {
+                if (colorObj.id > 0 && colorObj.id < 22) {
+                  return (
+                    <option key={colorObj.id} value={colorObj.id}>
+                      {colorObj.color_grade}-{colorObj.label}
+                    </option>
+                  );
+                }
+              })}
+            </select>
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">

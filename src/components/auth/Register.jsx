@@ -38,8 +38,12 @@ export const Register = ({ setToken }) => {
 
   return (
     <>
-      <h1 className="text-5xl text-center">Dram Journal</h1>
-      <p className="text-lg text-center">Create an account</p>
+      <h1 className="mt-10 text-slate-100 text-5xl text-center">
+        Dram Journal
+      </h1>
+      <p className="m-5 text-slate-100 text-lg text-center">
+        Create an account
+      </p>
       <section className="flex justify-center items-center">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-md"
