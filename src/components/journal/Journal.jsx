@@ -37,12 +37,20 @@ export const Journal = ({ token }) => {
 
   return (
     <>
-      <h1 className=" text-2xl text-center">Welcome to Dram Journal</h1>
+      {journalEntries[0]?.is_owner === false ? (
+        <h1 className=" m-10 text-slate-100 text-4xl text-center">
+          {journalEntries[0]?.user.author_name}'s Dram Journal
+        </h1>
+      ) : (
+        <h1 className=" m-10 text-slate-100 text-4xl text-center">
+          My Dram Journal
+        </h1>
+      )}
       {journalEntries.map((entry) => {
         return (
           <div key={entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
-              <h2>{entry.whiskey}</h2>
+              <h2 className=" text-2xl">{entry.whiskey}</h2>
               {userBookmarks.find((obj) => obj.entry === entry.id) ? (
                 <i
                   onClick={async () => {
@@ -105,10 +113,7 @@ export const Journal = ({ token }) => {
               Rating: {entry.rating.number_rating}/5 - {entry.rating.label}
             </p>
             {entry.notes ? <p>Notes: {entry.notes}</p> : ""}
-            <p>
-              From {entry.user.author_name}'s Dram Journal{" "}
-              {entry.publication_date}
-            </p>
+            <p>Date: {entry.publication_date}</p>
             {entry.is_owner ? (
               <div className="flex justify-between my-2">
                 <i

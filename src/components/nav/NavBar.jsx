@@ -6,8 +6,8 @@ export const NavBar = ({ token, setToken, currentUsername }) => {
 
   return (
     <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="space-x-4">
+      <div className="container mx-auto flex justify-between items-center ">
+        <div className="space-x-4 flex justify-between">
           {token && (
             <>
               <Link to="/" className="text-white">
@@ -17,7 +17,7 @@ export const NavBar = ({ token, setToken, currentUsername }) => {
                 My Journal
               </Link>
               <Link to="/new" className="text-white">
-                New Entry
+                New
               </Link>
               <Link to="/bookmarks" className="text-white">
                 Bookmarks

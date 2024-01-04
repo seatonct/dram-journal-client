@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { deleteEntry, getBookmarkedEntries } from "../../managers/EntryManager";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   getBookmarksWithExpandedEntry,
   deleteBookmark,
@@ -29,12 +29,14 @@ export const Bookmarks = ({ currentUsername }) => {
 
   return (
     <>
-      <h1 className=" text-2xl text-center">Bookmarked Journal Entries</h1>
+      <h1 className=" m-10 text-slate-100 text-4xl text-center">
+        Bookmarked Entries
+      </h1>
       {bookmarkedEntries.map((bookmark) => {
         return (
           <div key={bookmark.entry.id} className="p-2 m-2 border-2">
             <section className="flex justify-between">
-              <h2>{bookmark.entry.whiskey}</h2>
+              <h2 className=" text-2xl">{bookmark.entry.whiskey}</h2>
               <i
                 onClick={async () => {
                   await deleteBookmark(
@@ -100,8 +102,14 @@ export const Bookmarks = ({ currentUsername }) => {
             </p>
             {bookmark.entry.notes ? <p>Notes: {bookmark.entry.notes}</p> : ""}
             <p>
-              From {bookmark.entry.user.author_name}'s Dram Journal{" "}
-              {bookmark.entry.publication_date}
+              From{" "}
+              <Link
+                className=" text-blue-700"
+                to={`/${bookmark.entry.user.username}`}
+              >
+                {bookmark.entry.user.author_name}'s
+              </Link>{" "}
+              Dram Journal {bookmark.entry.publication_date}
             </p>
             {bookmark.entry.is_owner ? (
               <div className="flex justify-between my-2">

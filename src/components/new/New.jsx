@@ -67,7 +67,7 @@ export const New = ({ currentUsername }) => {
 
   return (
     <>
-      <h1 className="text-4xl text-center">New Entry</h1>;
+      <h1 className=" mt-10 text-slate-100 text-4xl text-center">New Entry</h1>;
       <section className="flex justify-center items-center">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-md"
