@@ -34,9 +34,12 @@ export const Bookmarks = ({ currentUsername }) => {
       </h1>
       {bookmarkedEntries.map((bookmark) => {
         return (
-          <div key={bookmark.entry.id} className="p-2 m-2 border-2">
-            <section className="flex justify-between">
-              <h2 className=" text-2xl">{bookmark.entry.whiskey}</h2>
+          <div
+            key={bookmark.entry.id}
+            className="ml-auto mr-auto w-2/3 p-2 mb-10 border-2 bg-slate-100"
+          >
+            <section className="border-b-2 flex justify-between">
+              <h2 className=" text-3xl">{bookmark.entry.whiskey}</h2>
               <i
                 onClick={async () => {
                   await deleteBookmark(
@@ -50,27 +53,34 @@ export const Bookmarks = ({ currentUsername }) => {
                 className="fa-solid fa-bookmark"
               ></i>
             </section>
-            <p>Type: {bookmark.entry.whiskey_type?.label}</p>
+            <p className="border-b-2 pt-2">
+              Type: {bookmark.entry.whiskey_type?.label}
+            </p>
             {bookmark.entry.part_of_country ? (
-              <p>
+              <p className="border-b-2 pt-2">
                 Origin: {bookmark.entry.part_of_country},{" "}
                 {bookmark.entry.country}
               </p>
             ) : (
-              <p>Origin: {bookmark.entry.country}</p>
+              <p className="border-b-2 pt-2">
+                Origin: {bookmark.entry.country}
+              </p>
             )}
 
             {bookmark.entry.age_in_years > 0 ? (
-              <p>Age: {parseInt(bookmark.entry.age_in_years)} years</p>
+              <p className="border-b-2 pt-2">
+                Age: {parseInt(bookmark.entry.age_in_years)} years
+              </p>
             ) : (
               ""
             )}
-            <p>Proof: {bookmark.entry.proof}</p>
+            <p className="border-b-2 pt-2">Proof: {bookmark.entry.proof}</p>
             {22 > bookmark.entry.color.id > 0 ? (
               <div
+                className="border-b-2 pt-2"
                 style={{ backgroundColor: `#${bookmark.entry.color.hex_code}` }}
               >
-                <p>
+                <p className="border-b-2 pt-2">
                   Color: {bookmark.entry.color.color_grade} -{" "}
                   {bookmark.entry.color.label}
                 </p>
@@ -80,28 +90,36 @@ export const Bookmarks = ({ currentUsername }) => {
               ""
             )}
             {bookmark.entry.mash_bill ? (
-              <p>Mash Bill: {bookmark.entry.mash_bill}</p>
+              <p className="border-b-2 pt-2">
+                Mash Bill: {bookmark.entry.mash_bill}
+              </p>
             ) : (
               ""
             )}
             {bookmark.entry.maturation_details ? (
-              <p>Maturation Details: {bookmark.entry.maturation_details}</p>
+              <p className="border-b-2 pt-2">
+                Maturation Details: {bookmark.entry.maturation_details}
+              </p>
             ) : (
               ""
             )}
-            <p>Nose: {bookmark.entry.nose}</p>
-            <p>Palate: {bookmark.entry.palate}</p>
+            <p className="border-b-2 pt-2">Nose: {bookmark.entry.nose}</p>
+            <p className="border-b-2 pt-2">Palate: {bookmark.entry.palate}</p>
             {bookmark.entry.finish ? (
-              <p>Finish: {bookmark.entry.finish}</p>
+              <p className="border-b-2 pt-2">Finish: {bookmark.entry.finish}</p>
             ) : (
               ""
             )}
-            <p>
+            <p className="border-b-2 pt-2">
               Rating: {bookmark.entry.rating.number_rating}/5 -{" "}
               {bookmark.entry.rating.label}
             </p>
-            {bookmark.entry.notes ? <p>Notes: {bookmark.entry.notes}</p> : ""}
-            <p>
+            {bookmark.entry.notes ? (
+              <p className="border-b-2 pt-2">Notes: {bookmark.entry.notes}</p>
+            ) : (
+              ""
+            )}
+            <p className="pt-2">
               From{" "}
               <Link
                 className=" text-blue-700"
