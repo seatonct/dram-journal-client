@@ -96,12 +96,14 @@ export const Journal = ({ token }) => {
             )}
             <p className="border-b-2 pt-2">Proof: {entry.proof}</p>
             {22 > entry.color.id > 0 ? (
-              <div
-                className="border-b-2 pt-2"
-                style={{ backgroundColor: `#${entry.color.hex_code}` }}
-              >
+              <div className="border-b-2 pt-2">
                 <p>
                   Color: {entry.color.color_grade} - {entry.color.label}
+                  {"  "}
+                  <i
+                    className="fa-solid fa-whiskey-glass"
+                    style={{ color: `#${entry.color.hex_code}` }}
+                  ></i>
                 </p>
                 <div></div>
               </div>

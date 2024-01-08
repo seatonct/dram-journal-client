@@ -76,13 +76,15 @@ export const Bookmarks = ({ currentUsername }) => {
             )}
             <p className="border-b-2 pt-2">Proof: {bookmark.entry.proof}</p>
             {22 > bookmark.entry.color.id > 0 ? (
-              <div
-                className="border-b-2 pt-2"
-                style={{ backgroundColor: `#${bookmark.entry.color.hex_code}` }}
-              >
+              <div className="border-b-2 pt-2">
                 <p className="border-b-2 pt-2">
                   Color: {bookmark.entry.color.color_grade} -{" "}
                   {bookmark.entry.color.label}
+                  {"  "}
+                  <i
+                    className="fa-solid fa-whiskey-glass"
+                    style={{ color: `#${bookmark.entry.color.hex_code}` }}
+                  ></i>
                 </p>
                 <div></div>
               </div>

@@ -172,10 +172,10 @@ export const New = ({ currentUsername }) => {
             ></img>
             <label className="block text-gray-700 text-md font-bold mb-2">
               Color:{" "}
-              <i
+              {/* <i
                 style={{ color: `#${chosenColor?.hex_code}` }}
                 className="fa-solid fa-whiskey-glass text-4xl"
-              ></i>
+              ></i> */}
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
