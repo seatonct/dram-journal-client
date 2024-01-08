@@ -8,6 +8,10 @@ Users can also, of course, create and edit their own journal entries and view al
 
 This app was created using React (Vite), Tailwind and some Vanilla CSS, as well as Django (Python) and SQLite3.
 
+Wireframe: https://miro.com/app/board/uXjVNJQjMNU=/?share_link_id=454398287206
+
+ERD: https://dbdiagram.io/d/WhiskeyERD-65676b753be1495787fde9bf
+
 To Test:
 
 1. First, go to the repository at the following link and follow the instructions in that repository's ReadMe file to get the database and API up and running: https://github.com/seatonct/dramproject
