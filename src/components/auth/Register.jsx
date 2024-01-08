@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../managers/AuthManager";
+import "./Auth.css";
 
 export const Register = ({ setToken }) => {
   const firstName = useRef();
@@ -38,10 +39,10 @@ export const Register = ({ setToken }) => {
 
   return (
     <>
-      <h1 className="mt-10 text-slate-100 text-5xl text-center">
+      <h1 className="mt-10 text-slate-100 text-6xl text-center">
         Dram Journal
       </h1>
-      <p className="m-5 text-slate-100 text-lg text-center">
+      <p className="auth-shadow m-5 text-slate-100 text-md text-center">
         Create an account
       </p>
       <section className="flex justify-center items-center">
@@ -50,7 +51,7 @@ export const Register = ({ setToken }) => {
           onSubmit={handleRegister}
         >
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               First Name
             </label>
             <div className="">
@@ -63,7 +64,7 @@ export const Register = ({ setToken }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Last Name
             </label>
             <div className="control">
@@ -76,7 +77,7 @@ export const Register = ({ setToken }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Username
             </label>
             <div className="control">
@@ -89,7 +90,7 @@ export const Register = ({ setToken }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Email
             </label>
             <div className="control">
@@ -102,7 +103,7 @@ export const Register = ({ setToken }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Password
             </label>
             <div className="field-body">

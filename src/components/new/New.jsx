@@ -11,6 +11,7 @@ export const New = ({ currentUsername }) => {
   const [allTypes, setAllTypes] = useState([]);
   const [allColors, setAllColors] = useState([]);
   const [allRatings, setAllRatings] = useState([]);
+  const [chosenColor, setChosenColor] = useState({});
   const [newEntry, setNewEntry] = useState({
     whiskey: "",
     type_id: 0,
@@ -43,13 +44,12 @@ export const New = ({ currentUsername }) => {
     });
   }, []);
 
-  // const handleMouseEnter = (hex) => {
-  //   setColorSample(hex);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setColorSample("");
-  // };
+  useEffect(() => {
+    const thisColor = allColors.find((color) => {
+      color.id === newEntry.color_id;
+    });
+    setChosenColor(thisColor);
+  }, [allColors, newEntry]);
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -67,14 +67,14 @@ export const New = ({ currentUsername }) => {
 
   return (
     <>
-      <h1 className=" mt-10 text-slate-100 text-4xl text-center">New Entry</h1>;
+      <h1 className=" mt-10 text-slate-100 text-6xl text-center">New Entry</h1>;
       <section className="flex justify-center items-center">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-lg"
           onSubmit={handleSave}
         >
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Whiskey:
             </label>
             <input
@@ -88,7 +88,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Type:
             </label>
             <select
@@ -112,7 +112,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Country of Origin:
             </label>
             <input
@@ -126,7 +126,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               State/Province/Region:
             </label>
             <input
@@ -139,7 +139,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Age:
             </label>
             <input
@@ -152,7 +152,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Proof:
             </label>
             <input
@@ -170,8 +170,12 @@ export const New = ({ currentUsername }) => {
               src="https://images.squarespace-cdn.com/content/v1/5ea1d97fa7adf23f0a1c9f63/1592961180376-PJ77I2KEQG9INTCPASXS/whiskey+color+whisky+mag.jpg?format=1000w"
               alt="Whiskey color scale"
             ></img>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Color:
+            <label className="block text-gray-700 text-md font-bold mb-2">
+              Color:{" "}
+              {/* <i
+                style={{ color: `#${chosenColor?.hex_code}` }}
+                className="fa-solid fa-whiskey-glass text-4xl"
+              ></i> */}
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -202,7 +206,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Mash Bill:
             </label>
             <textarea
@@ -215,7 +219,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Maturation Details:
             </label>
             <textarea
@@ -228,7 +232,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Nose:
             </label>
             <textarea
@@ -242,7 +246,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Palate:
             </label>
             <textarea
@@ -256,7 +260,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Finish:
             </label>
             <textarea
@@ -269,7 +273,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Rating:
             </label>
             <div>
@@ -292,7 +296,7 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Notes:
             </label>
             <textarea

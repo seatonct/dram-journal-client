@@ -29,7 +29,7 @@ export const Bookmarks = ({ currentUsername }) => {
 
   return (
     <>
-      <h1 className=" m-10 text-slate-100 text-4xl text-center">
+      <h1 className=" m-10 text-slate-100 text-6xl text-center">
         Bookmarked Entries
       </h1>
       {bookmarkedEntries.map((bookmark) => {
@@ -39,7 +39,7 @@ export const Bookmarks = ({ currentUsername }) => {
             className="ml-auto mr-auto w-2/3 p-2 mb-10 border-2 bg-slate-100"
           >
             <section className="border-b-2 flex justify-between">
-              <h2 className=" text-3xl">{bookmark.entry.whiskey}</h2>
+              <h2 className=" font-bold text-3xl">{bookmark.entry.whiskey}</h2>
               <i
                 onClick={async () => {
                   await deleteBookmark(
@@ -76,13 +76,15 @@ export const Bookmarks = ({ currentUsername }) => {
             )}
             <p className="border-b-2 pt-2">Proof: {bookmark.entry.proof}</p>
             {22 > bookmark.entry.color.id > 0 ? (
-              <div
-                className="border-b-2 pt-2"
-                style={{ backgroundColor: `#${bookmark.entry.color.hex_code}` }}
-              >
+              <div className="border-b-2 pt-2">
                 <p className="border-b-2 pt-2">
                   Color: {bookmark.entry.color.color_grade} -{" "}
                   {bookmark.entry.color.label}
+                  {"  "}
+                  <i
+                    className="fa-solid fa-whiskey-glass"
+                    style={{ color: `#${bookmark.entry.color.hex_code}` }}
+                  ></i>
                 </p>
                 <div></div>
               </div>

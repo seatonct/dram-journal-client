@@ -78,7 +78,7 @@ export const Edit = ({ currentUsername }) => {
 
   return (
     <>
-      <h1 className=" mt-10 text-slate-100 text-4xl text-center">Edit Entry</h1>
+      <h1 className=" mt-10 text-slate-100 text-6xl text-center">Edit Entry</h1>
       ;
       <section className="flex justify-center items-center">
         <form
@@ -86,7 +86,7 @@ export const Edit = ({ currentUsername }) => {
           onSubmit={handleSave}
         >
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Whiskey:
             </label>
             <input
@@ -101,7 +101,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Type:
             </label>
             <select
@@ -130,7 +130,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Country of Origin:
             </label>
             <input
@@ -145,7 +145,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               State/Province/Region:
             </label>
             <input
@@ -159,7 +159,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Age:
             </label>
             <input
@@ -173,7 +173,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Proof:
             </label>
             <input
@@ -192,7 +192,7 @@ export const Edit = ({ currentUsername }) => {
               src="https://images.squarespace-cdn.com/content/v1/5ea1d97fa7adf23f0a1c9f63/1592961180376-PJ77I2KEQG9INTCPASXS/whiskey+color+whisky+mag.jpg?format=1000w"
               alt="Whiskey color scale"
             ></img>
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Color:
             </label>
             <select
@@ -221,7 +221,7 @@ export const Edit = ({ currentUsername }) => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Mash Bill:
             </label>
             <textarea
@@ -235,7 +235,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Maturation Details:
             </label>
             <textarea
@@ -249,7 +249,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Nose:
             </label>
             <textarea
@@ -264,7 +264,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Palate:
             </label>
             <textarea
@@ -279,7 +279,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Finish:
             </label>
             <textarea
@@ -293,7 +293,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               *Rating:
             </label>
             <div>
@@ -320,7 +320,7 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Notes:
             </label>
             <textarea
