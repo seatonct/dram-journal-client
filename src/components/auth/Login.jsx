@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../managers/AuthManager";
+import "./Auth.css";
 
 export const Login = ({ setToken }) => {
   const username = useRef();
@@ -28,17 +29,19 @@ export const Login = ({ setToken }) => {
 
   return (
     <>
-      <h1 className="mt-10 text-slate-100 text-5xl text-center ">
+      <h1 className="mt-10 text-slate-100 text-6xl text-center ">
         Dram Journal
       </h1>
-      <p className=" m-5 text-slate-100 text-lg text-center">Please sign in</p>
+      <p className="auth-shadow m-5 text-slate-100 text-md text-center">
+        Please sign in
+      </p>
       <section className="flex justify-center items-center">
         <form
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-sm"
           onSubmit={handleLogin}
         >
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Username
             </label>
             <div className="">
@@ -51,7 +54,7 @@ export const Login = ({ setToken }) => {
           </div>
 
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-md font-bold mb-2">
               Password
             </label>
             <div className="">

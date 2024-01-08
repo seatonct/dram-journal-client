@@ -38,11 +38,11 @@ export const Journal = ({ token }) => {
   return (
     <>
       {journalEntries[0]?.is_owner === false ? (
-        <h1 className=" m-10 text-slate-100 text-4xl text-center">
+        <h1 className=" m-10 text-slate-100 text-6xl text-center">
           {journalEntries[0]?.user.author_name}'s Dram Journal
         </h1>
       ) : (
-        <h1 className=" m-10 text-slate-100 text-4xl text-center">
+        <h1 className=" m-10 text-slate-100 text-6xl text-center">
           My Dram Journal
         </h1>
       )}
@@ -53,7 +53,7 @@ export const Journal = ({ token }) => {
             className="ml-auto mr-auto w-2/3 p-2 mb-10 border-2 bg-slate-100"
           >
             <section className="border-b-2 flex justify-between">
-              <h2 className=" text-3xl">{entry.whiskey}</h2>
+              <h2 className=" font-bold text-3xl">{entry.whiskey}</h2>
               {userBookmarks.find((obj) => obj.entry === entry.id) ? (
                 <i
                   onClick={async () => {
