@@ -10,7 +10,7 @@ This app was created using React (Vite), Tailwind and some Vanilla CSS, as well 
 
 To Test:
 
-1. First, go to the repository at the following link and follow the instructions in that repository's ReadMe file to get the database and API up and running.
+1. First, go to the repository at the following link and follow the instructions in that repository's ReadMe file to get the database and API up and running: https://github.com/seatonct/dramproject
 
 2. Open a new terminal window, and clone this repository in the desired directory by running the command, `git clone git@github.com:seatonct/dram-journal-client.git`.
 
