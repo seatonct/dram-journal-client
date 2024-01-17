@@ -42,13 +42,9 @@ export const Bookmarks = ({ currentUsername }) => {
               <h2 className=" font-bold text-3xl">{bookmark.entry.whiskey}</h2>
               <i
                 onClick={async () => {
-                  await deleteBookmark(
-                    bookmarkedEntries.find(
-                      (bookmark) => bookmark.entry.id === bookmark.entry.id
-                    )
-                  );
+                  await deleteBookmark(bookmark);
 
-                  await getAndSetBookmarkedEntries(currentUsername);
+                  await getAndSetBookmarkedEntries();
                 }}
                 className="fa-solid fa-bookmark"
               ></i>
