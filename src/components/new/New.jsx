@@ -11,7 +11,7 @@ export const New = ({ currentUsername }) => {
   const [allTypes, setAllTypes] = useState([]);
   const [allColors, setAllColors] = useState([]);
   const [allRatings, setAllRatings] = useState([]);
-  const [chosenColor, setChosenColor] = useState({});
+  const [chosenColor, setChosenColor] = useState();
   const [newEntry, setNewEntry] = useState({
     whiskey: "",
     type_id: 0,
@@ -28,7 +28,6 @@ export const New = ({ currentUsername }) => {
     rating_id: 0,
     notes: "",
   });
-  // const [colorSample, setColorSample] = useState("");
 
   const navigate = useNavigate();
 
@@ -45,11 +44,11 @@ export const New = ({ currentUsername }) => {
   }, []);
 
   useEffect(() => {
-    const thisColor = allColors.find((color) => {
-      color.id === newEntry.color_id;
-    });
+    const thisColor = allColors.find(
+      (color) => color.id === parseInt(newEntry.color_id)
+    );
     setChosenColor(thisColor);
-  }, [allColors, newEntry]);
+  }, [allColors, newEntry.color_id]);
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -165,17 +164,12 @@ export const New = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <img
-              className="mb-2"
-              src="https://images.squarespace-cdn.com/content/v1/5ea1d97fa7adf23f0a1c9f63/1592961180376-PJ77I2KEQG9INTCPASXS/whiskey+color+whisky+mag.jpg?format=1000w"
-              alt="Whiskey color scale"
-            ></img>
             <label className="block text-gray-700 text-md font-bold mb-2">
               Color:{" "}
-              {/* <i
+              <i
                 style={{ color: `#${chosenColor?.hex_code}` }}
                 className="fa-solid fa-whiskey-glass text-4xl"
-              ></i> */}
+              ></i>
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -189,14 +183,7 @@ export const New = ({ currentUsername }) => {
               {allColors.map((colorObj) => {
                 if (colorObj.id > 0 && colorObj.id < 22) {
                   return (
-                    <option
-                      key={colorObj.id}
-                      value={colorObj.id}
-                      // onMouseEnter={() => {
-                      //   handleMouseEnter(colorObj.hex_code);
-                      // }}
-                      // onMouseLeave={handleMouseLeave}
-                    >
+                    <option key={colorObj.id} value={colorObj.id}>
                       {colorObj.color_grade}-{colorObj.label}
                     </option>
                   );

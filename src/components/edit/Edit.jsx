@@ -13,7 +13,7 @@ export const Edit = ({ currentUsername }) => {
   const [allColors, setAllColors] = useState([]);
   const [allRatings, setAllRatings] = useState([]);
   const [entry, setEntry] = useState();
-  // const [colorSample, setColorSample] = useState("");
+  const [chosenColor, setChosenColor] = useState();
 
   const { postId } = useParams();
   const navigate = useNavigate();
@@ -36,13 +36,12 @@ export const Edit = ({ currentUsername }) => {
     });
   }, [postId]);
 
-  // const handleMouseEnter = (hex) => {
-  //   setColorSample(hex);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setColorSample("");
-  // };
+  useEffect(() => {
+    const thisColor = allColors.find(
+      (color) => color.id === parseInt(entry?.color.id)
+    );
+    setChosenColor(thisColor);
+  }, [allColors, entry?.color.id]);
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -187,13 +186,12 @@ export const Edit = ({ currentUsername }) => {
           </div>
 
           <div className="mb-4">
-            <img
-              className="mb-2"
-              src="https://images.squarespace-cdn.com/content/v1/5ea1d97fa7adf23f0a1c9f63/1592961180376-PJ77I2KEQG9INTCPASXS/whiskey+color+whisky+mag.jpg?format=1000w"
-              alt="Whiskey color scale"
-            ></img>
             <label className="block text-gray-700 text-md font-bold mb-2">
-              Color:
+              Color:{" "}
+              <i
+                style={{ color: `#${chosenColor?.hex_code}` }}
+                className="fa-solid fa-whiskey-glass text-4xl"
+              ></i>
             </label>
             <select
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
