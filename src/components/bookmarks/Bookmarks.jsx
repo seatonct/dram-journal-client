@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteEntry, getBookmarkedEntries } from "../../managers/EntryManager";
+import { deleteEntry } from "../../managers/EntryManager";
 import { useNavigate, Link } from "react-router-dom";
 import {
   getBookmarksWithExpandedEntry,
