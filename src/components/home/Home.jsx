@@ -7,7 +7,7 @@ import {
   deleteBookmark,
 } from "../../managers/BookmarkManager";
 
-export const Home = ({ token, currentUsername }) => {
+export const Home = ({ currentUsername }) => {
   const [allEntries, setAllEntries] = useState([]);
   const [userBookmarks, setUserBookmarks] = useState([]);
 
@@ -36,7 +36,7 @@ export const Home = ({ token, currentUsername }) => {
         getAndSetAllEntries();
       });
     }
-  }, [token, currentUsername]);
+  }, [currentUsername]);
 
   return (
     <>
