@@ -17,12 +17,12 @@ export const ApplicationViews = ({ token, setToken, currentUsername }) => {
         <Route element={<Authorized token={token} />}>
           <Route
             path="/"
-            element={<Home token={token} currentUsername={currentUsername} />}
+            element={<Home currentUsername={currentUsername} />}
           />
-          <Route path=":username" element={<Journal token={token} />} />
+          <Route path=":username" element={<Journal />} />
           <Route
             path="new"
-            element={<New token={token} currentUsername={currentUsername} />}
+            element={<New currentUsername={currentUsername} />}
           />
           <Route
             path="/edit/:postId"
@@ -30,9 +30,7 @@ export const ApplicationViews = ({ token, setToken, currentUsername }) => {
           />
           <Route
             path="/bookmarks"
-            element={
-              <Bookmarks token={token} currentUsername={currentUsername} />
-            }
+            element={<Bookmarks currentUsername={currentUsername} />}
           />
         </Route>
       </Routes>

@@ -7,7 +7,7 @@ import {
   deleteBookmark,
 } from "../../managers/BookmarkManager";
 
-export const Journal = ({ token }) => {
+export const Journal = () => {
   const [journalEntries, setJournalEntries] = useState([]);
   const [userBookmarks, setUserBookmarks] = useState([]);
 
@@ -33,7 +33,7 @@ export const Journal = ({ token }) => {
     getAndSetUserBookmarks().then(() => {
       getAndSetJournalEntries();
     });
-  }, [token, username]);
+  }, [username]);
 
   return (
     <>
