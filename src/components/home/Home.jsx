@@ -43,6 +43,7 @@ export const Home = ({ currentUsername }) => {
       <h1 className=" m-10 text-slate-100 text-6xl text-center">
         Welcome to Dram Journal
       </h1>
+      {/* Render each entry, including the following. */}
       {allEntries.map((entry) => {
         return (
           <div
@@ -50,6 +51,7 @@ export const Home = ({ currentUsername }) => {
             className=" ml-auto mr-auto w-2/3 p-2 mb-10 border-2 bg-slate-100"
           >
             <section className="border-b-2 flex justify-between">
+              {/* Heading with the whiskey's name */}
               <h2 className=" font-bold text-3xl">{entry.whiskey}</h2>
               {/* Does the current user have a bookmark for this entry? */}
               {userBookmarks.find((obj) => obj.entry === entry.id) ? (
@@ -82,10 +84,10 @@ export const Home = ({ currentUsername }) => {
             </section>
             {/* Whiskey Type */}
             <p className="border-b-2 pt-2">Type: {entry.whiskey_type?.label}</p>
-            {/* If included, state, region, etc., where whiskey is produced in country of origin */}
+            {/* If included, state, region, etc., where whiskey is produced in country of origin, with ... */}
             {entry.part_of_country ? (
               <p className="border-b-2 pt-2">
-                {/* Country of Origin */}
+                {/* the whiskey's country of origin */}
                 Origin: {entry.part_of_country}, {entry.country}
               </p>
             ) : (
@@ -101,14 +103,14 @@ export const Home = ({ currentUsername }) => {
             )}
             {/* Proof of Whiskey */}
             <p className="border-b-2 pt-2">Proof: {entry.proof}</p>
-            {/* If included, color of whiskey*/}
+            {/* If included, color of whiskey, including...*/}
             {22 > entry.color.id > 0 ? (
               <div className="border-b-2 pt-2">
                 <p>
-                  {/* Color grade (0.0 - 2.0) and descriptive label */}
+                  {/* color grade (0.0 - 2.0) with descriptive label and ... */}
                   Color: {entry.color.color_grade} - {entry.color.label}
                   {"  "}
-                  {/* Whiskey glass icon in the color of the whiskey */}
+                  {/* whiskey glass icon in the color of the whiskey */}
                   <i
                     className="fa-solid fa-whiskey-glass"
                     style={{ color: `#${entry.color.hex_code}` }}
