@@ -50,6 +50,7 @@ export const New = ({ currentUsername }) => {
     setChosenColor(thisColor);
   }, [allColors, newEntry.color_id]);
 
+  // When user enters or changes info in the form, newEntry is updated with the new info.
   const handleUpdate = (event) => {
     event.preventDefault();
     const copy = { ...newEntry };
@@ -57,6 +58,8 @@ export const New = ({ currentUsername }) => {
     setNewEntry(copy);
   };
 
+  // When the user clicks save after filling all required fields,
+  // the new entry is saved in the database and the browser navigates to My Journal.
   const handleSave = async (event) => {
     event.preventDefault();
     const copy = { ...newEntry };
@@ -72,6 +75,7 @@ export const New = ({ currentUsername }) => {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-lg"
           onSubmit={handleSave}
         >
+          {/* The user must enter a name for the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Whiskey:
@@ -85,7 +89,7 @@ export const New = ({ currentUsername }) => {
               required
             ></input>
           </div>
-
+          {/* The user must select a type for the whiskey from the dropdown menu */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Type:
@@ -100,6 +104,7 @@ export const New = ({ currentUsername }) => {
               <option defaultValue value="0" key="0">
                 Select a whiskey type...
               </option>
+              {/* Display the label for each type in the dropdown menu. */}
               {allTypes.map((typeObj) => {
                 return (
                   <option key={typeObj.id} value={typeObj.id}>
@@ -109,7 +114,7 @@ export const New = ({ currentUsername }) => {
               })}
             </select>
           </div>
-
+          {/* The user enters the whiskey's country of origin */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Country of Origin:
@@ -123,7 +128,7 @@ export const New = ({ currentUsername }) => {
               required
             ></input>
           </div>
-
+          {/* The user may optionally enter the part of the country of origin in which the whiskey is produced */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               State/Province/Region:
@@ -136,7 +141,7 @@ export const New = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></input>
           </div>
-
+          {/* The user may optionally enter an age for the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Age:
@@ -149,7 +154,7 @@ export const New = ({ currentUsername }) => {
             ></input>
             <span> years</span>
           </div>
-
+          {/* The user must enter the whiskey's proof */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Proof:
@@ -162,10 +167,11 @@ export const New = ({ currentUsername }) => {
               required
             ></input>
           </div>
-
+          {/* The user may select a color grade (0.0-2.0) with a descriptive label from the dropdown menu */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Color:{" "}
+              {/* Whiskey glass icon whose color changes to match the chosen color grade */}
               <i
                 style={{ color: `#${chosenColor?.hex_code}` }}
                 className="fa-solid fa-whiskey-glass text-4xl"
@@ -180,6 +186,7 @@ export const New = ({ currentUsername }) => {
               <option defaultValue value="0" key="0">
                 What color is the whiskey?
               </option>
+              {/* List the color grades with descriptive labels in the dropdown menu */}
               {allColors.map((colorObj) => {
                 if (colorObj.id > 0 && colorObj.id < 22) {
                   return (
@@ -191,7 +198,7 @@ export const New = ({ currentUsername }) => {
               })}
             </select>
           </div>
-
+          {/* The user may optionally enter information about the whiskey's mashbill */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Mash Bill:
@@ -204,7 +211,7 @@ export const New = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* The user may optionally enter the whiskey's maturation details. */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Maturation Details:
@@ -217,7 +224,7 @@ export const New = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* The user must enter information about the smell profile of the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Nose:
@@ -231,7 +238,7 @@ export const New = ({ currentUsername }) => {
               required
             ></textarea>
           </div>
-
+          {/* The user must enter information about the taste profile of the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Palate:
@@ -245,7 +252,7 @@ export const New = ({ currentUsername }) => {
               required
             ></textarea>
           </div>
-
+          {/* The user may optionally enter information about how the whiskey finishes */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Finish:
@@ -258,12 +265,13 @@ export const New = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* The user must click a radio button to select a rating for the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Rating:
             </label>
             <div>
+              {/* Display the rating options, including the rating's number and descriptive label */}
               {allRatings.map((rating) => {
                 return (
                   <label key={rating.id} className=" px-2">
@@ -281,7 +289,7 @@ export const New = ({ currentUsername }) => {
               })}
             </div>
           </div>
-
+          {/* The user may enter additional notes. */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Notes:
@@ -294,7 +302,7 @@ export const New = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* Let the user know that fields labelled with an asterisk are required fields */}
           <div>* Required Field</div>
           <div className="flex">
             <button
