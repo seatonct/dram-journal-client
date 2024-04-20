@@ -14,11 +14,13 @@ export const Journal = ({ currentUsername }) => {
   const { username } = useParams();
   const navigate = useNavigate();
 
+  // Get the current user's bookmarks.
   const getAndSetUserBookmarks = async () => {
     const bookmarksArray = await getBookmarksByUsername(currentUsername);
     setUserBookmarks(bookmarksArray);
   };
 
+  // Get journal entries from this Dram Journal (based on username in url)
   const getAndSetJournalEntries = async () => {
     const entryArray = await getEntriesByUsername(username);
     setJournalEntries(entryArray);

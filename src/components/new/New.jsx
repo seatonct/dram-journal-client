@@ -31,6 +31,7 @@ export const New = ({ currentUsername }) => {
 
   const navigate = useNavigate();
 
+  // Get and set types, colors, and ratings options.
   useEffect(() => {
     getAllTypes().then((types) => {
       setAllTypes(types);
@@ -43,6 +44,7 @@ export const New = ({ currentUsername }) => {
     });
   }, []);
 
+  // When the user changes the color selection for the whiskey, set chosenColor to that color.
   useEffect(() => {
     const thisColor = allColors.find(
       (color) => color.id === parseInt(newEntry.color_id)
