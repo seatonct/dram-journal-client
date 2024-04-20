@@ -7,7 +7,7 @@ import {
   deleteBookmark,
 } from "../../managers/BookmarkManager";
 
-export const Journal = () => {
+export const Journal = ({ currentUsername }) => {
   const [journalEntries, setJournalEntries] = useState([]);
   const [userBookmarks, setUserBookmarks] = useState([]);
 
@@ -15,7 +15,7 @@ export const Journal = () => {
   const navigate = useNavigate();
 
   const getAndSetUserBookmarks = async () => {
-    const bookmarksArray = await getBookmarksByUsername(username);
+    const bookmarksArray = await getBookmarksByUsername(currentUsername);
     setUserBookmarks(bookmarksArray);
   };
 
