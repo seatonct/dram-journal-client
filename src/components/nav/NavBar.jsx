@@ -8,6 +8,7 @@ export const NavBar = ({ token, setToken, currentUsername }) => {
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center ">
         <div className="space-x-4 flex justify-between">
+          {/* If a user is logged in, render the full nav bar including Logout button. */}
           {token && (
             <>
               <Link to="/" className="text-white">
@@ -40,6 +41,7 @@ export const NavBar = ({ token, setToken, currentUsername }) => {
                   Logout
                 </button>
               ) : (
+                // If a user is not logged in, render only links to Register or Login
                 <>
                   <Link to="/register" className="text-white">
                     Register

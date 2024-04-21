@@ -18,6 +18,7 @@ export const Edit = ({ currentUsername }) => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
+  // Get type, color, and rating options for display in dropdowns & radio buttons
   useEffect(() => {
     getAllTypes().then((types) => {
       setAllTypes(types);
@@ -30,12 +31,14 @@ export const Edit = ({ currentUsername }) => {
     });
   }, []);
 
+  // Set state for this entry using the id from the url.
   useEffect(() => {
     getEntryById(postId).then((entryObj) => {
       setEntry(entryObj);
     });
   }, [postId]);
 
+  // Set chosenColor based on the color id currently chosen for the entry.
   useEffect(() => {
     const thisColor = allColors.find(
       (color) => color.id === parseInt(entry?.color.id)
@@ -43,6 +46,7 @@ export const Edit = ({ currentUsername }) => {
     setChosenColor(thisColor);
   }, [allColors, entry?.color.id]);
 
+  // Whenever the user makes a change, update the entry's state accordingly.
   const handleUpdate = (event) => {
     event.preventDefault();
     const copy = { ...entry };
@@ -50,6 +54,8 @@ export const Edit = ({ currentUsername }) => {
     setEntry(copy);
   };
 
+  // When the user clicks the Save button, save the updated entry to the database
+  // and then navigate to the current user's journal.
   const handleSave = async (event) => {
     event.preventDefault();
 
@@ -84,6 +90,7 @@ export const Edit = ({ currentUsername }) => {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 max-w-screen-lg"
           onSubmit={handleSave}
         >
+          {/* The user may change the whiskey's name, but must include a name */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Whiskey:
@@ -98,7 +105,7 @@ export const Edit = ({ currentUsername }) => {
               required
             ></input>
           </div>
-
+          {/* They user may change the whiskey's type, but must include a type */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Type:
@@ -118,6 +125,7 @@ export const Edit = ({ currentUsername }) => {
               <option defaultValue value="0" key="0">
                 Select a whiskey type...
               </option>
+              {/* Display type options in dropdown menu */}
               {allTypes.map((typeObj) => {
                 return (
                   <option key={typeObj.id} value={typeObj.id}>
@@ -127,7 +135,7 @@ export const Edit = ({ currentUsername }) => {
               })}
             </select>
           </div>
-
+          {/* The user may change the whiskey's country of origin but must include a country of origin */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Country of Origin:
@@ -142,7 +150,7 @@ export const Edit = ({ currentUsername }) => {
               required
             ></input>
           </div>
-
+          {/* The user may change or remove the whiskey's state, province, or region */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               State/Province/Region:
@@ -156,7 +164,7 @@ export const Edit = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></input>
           </div>
-
+          {/* The user may change or remove the whiskey's age */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Age:
@@ -170,7 +178,7 @@ export const Edit = ({ currentUsername }) => {
             ></input>
             <span> years</span>
           </div>
-
+          {/* The user may change the whiskey's proof, but must include a proof for the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Proof:
@@ -184,10 +192,11 @@ export const Edit = ({ currentUsername }) => {
               required
             ></input>
           </div>
-
+          {/* The user may change or remove the color selection for the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Color:{" "}
+              {/* whiskey glass icon in the current chosenColor for the whiskey */}
               <i
                 style={{ color: `#${chosenColor?.hex_code}` }}
                 className="fa-solid fa-whiskey-glass text-4xl"
@@ -207,6 +216,8 @@ export const Edit = ({ currentUsername }) => {
               <option defaultValue value="0" key="0">
                 What color is the whiskey?
               </option>
+              {/* Display the number rating (0.0-2.0) and descriptive label
+              for each color option in the dropdown menu */}
               {allColors.map((colorObj) => {
                 if (colorObj.id > 0 && colorObj.id < 22) {
                   return (
@@ -218,6 +229,7 @@ export const Edit = ({ currentUsername }) => {
               })}
             </select>
           </div>
+          {/* The user may change or remove mash bill info for the whiskey */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Mash Bill:
@@ -231,7 +243,7 @@ export const Edit = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* The user may change or remove maturation details */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Maturation Details:
@@ -245,7 +257,8 @@ export const Edit = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* The user may change the description of the whiskey's smell profile
+          but must include some description */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Nose:
@@ -260,7 +273,8 @@ export const Edit = ({ currentUsername }) => {
               required
             ></textarea>
           </div>
-
+          {/* The user may change the description of the whiskey's taste profile
+          but must include some description */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Palate:
@@ -275,7 +289,7 @@ export const Edit = ({ currentUsername }) => {
               required
             ></textarea>
           </div>
-
+          {/* The user may change or remove */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Finish:
@@ -289,12 +303,13 @@ export const Edit = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* The user may change the whiskey's rating but must include a rating */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               *Rating:
             </label>
             <div>
+              {/* Display a radio button for each rating option */}
               {allRatings.map((rating) => {
                 return (
                   <label key={rating.id} className=" px-2">
@@ -310,13 +325,15 @@ export const Edit = ({ currentUsername }) => {
                       checked={parseInt(entry.rating.id) === rating.id}
                       className=" mr-1"
                     />
+                    {/* Each rating option includes a number on a five point scale
+                    and a descriptive label */}
                     {rating.number_rating}-{rating.label}
                   </label>
                 );
               })}
             </div>
           </div>
-
+          {/* The user may change or remove additional notes */}
           <div className="mb-4">
             <label className="block text-gray-700 text-md font-bold mb-2">
               Notes:
@@ -330,7 +347,7 @@ export const Edit = ({ currentUsername }) => {
               onChange={handleUpdate}
             ></textarea>
           </div>
-
+          {/* Let the user know that fields marked with an asterisk are required fields. */}
           <div>* Required Field</div>
           <div className="flex">
             <button
